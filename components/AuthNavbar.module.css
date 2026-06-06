@@ -1,0 +1,170 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-base-100);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  height: 4rem;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.logo:hover {
+  background-color: var(--color-base-200);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  background-color: var(--color-base-200);
+  border: 1px solid color-mix(in srgb, var(--color-base-content) 15%, transparent);
+  border-radius: 0.5rem;
+  padding-inline: 0.75rem;
+  height: 2.5rem;
+}
+
+.search:focus-within {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.searchIcon {
+  width: 1em;
+  height: 1em;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+  font-size: 0.875rem;
+  min-width: 0;
+}
+
+.searchInput::placeholder {
+  color: color-mix(in srgb, var(--color-base-content) 40%, transparent);
+}
+
+.avatarButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 9999px;
+  padding: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.avatarButton:hover {
+  opacity: 0.8;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarInitials {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.menuAnchor {
+  position: relative;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  background-color: var(--color-base-100);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  width: 13rem;
+  padding: 0.5rem;
+  z-index: 10;
+  list-style: none;
+  margin: 0;
+}
+
+.menuAnchor:focus-within .dropdown {
+  display: block;
+}
+
+.dropdownEmail {
+  font-size: 0.75rem;
+  color: color-mix(in srgb, var(--color-base-content) 50%, transparent);
+  padding: 0.25rem 0.5rem 0.5rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.dropdownItem:hover {
+  background-color: var(--color-base-200);
+}
+
+.dropdownItemDanger {
+  composes: dropdownItem;
+  color: var(--color-error);
+}
