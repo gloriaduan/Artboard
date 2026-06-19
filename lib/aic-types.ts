@@ -5,6 +5,8 @@ export type AICArtwork = {
   image_id: string | null;
   date_display: string;
   medium_display: string;
+  is_boosted?: boolean;
+  is_on_view?: boolean;
 };
 
 export type AICResponse = {

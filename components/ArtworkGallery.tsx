@@ -65,6 +65,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
 
   // Trigger fetch when last virtual row comes into view
   const virtualItems = virtualizer.getVirtualItems();
+
   useEffect(() => {
     const lastItem = virtualItems[virtualItems.length - 1];
     if (!lastItem) return;
