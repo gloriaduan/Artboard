@@ -9,6 +9,16 @@ export type AICArtwork = {
   is_on_view?: boolean;
 };
 
+export type AICArtworkDetail = AICArtwork & {
+  description: string | null; // HTML; may be null
+  medium_display: string;
+  dimensions: string;
+  place_of_origin: string;
+  credit_line: string;
+};
+
+export type AICArtworkResponse = { data: AICArtworkDetail };
+
 export type AICResponse = {
   data: AICArtwork[];
   pagination: {

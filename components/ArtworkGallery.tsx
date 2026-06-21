@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { AICArtwork, AICResponse } from "@/lib/aic-types";
 import ArtworkCard from "./ArtworkCard";
+import ArtworkModal from "./ArtworkModal";
 import ArtworkSkeleton from "./ArtworkSkeleton";
 
 const COLS = 4;
@@ -29,6 +30,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
   const [isFetching, setIsFetching] = useState(false);
   const [query, setQuery] = useState("");
   const [period, setPeriod] = useState("");
+  const [selected, setSelected] = useState<AICArtwork | null>(null);
 
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -36,46 +38,36 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
   const hasMore = currentPage < totalPages;
 
   const virtualizer = useVirtualizer({
-    count: hasMore ? rows.length + 1 : rows.length, // +1 for loader row
+    count: hasMore ? rows.length + 1 : rows.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => CARD_HEIGHT,
     overscan: OVERSCAN,
   });
-
-  const fetchNextPage = useCallback(async () => {
-    if (isFetching || !hasMore) return;
-    setIsFetching(true);
-    const nextPage = currentPage + 1;
-    try {
-      const params = new URLSearchParams({
-        page: String(nextPage),
-        limit: "20",
-      });
-      if (query) params.set("q", query);
-      const res = await fetch(`/api/artworks?${params}`);
-      const json: AICResponse = await res.json();
-      setAllArtworks((prev) => [...prev, ...json.data]);
-      setCurrentPage(nextPage);
-    } catch (err) {
-      console.error("Failed to fetch next page:", err);
-    } finally {
-      setIsFetching(false);
-    }
-  }, [isFetching, hasMore, currentPage, query]);
 
   // Trigger fetch when last virtual row comes into view
   const virtualItems = virtualizer.getVirtualItems();
 
   useEffect(() => {
     const lastItem = virtualItems[virtualItems.length - 1];
-    if (!lastItem) return;
-    if (lastItem.index >= rows.length - 1 && hasMore && !isFetching) {
-      fetchNextPage();
-    }
-  }, [virtualItems, rows.length, hasMore, isFetching, fetchNextPage]);
+    if (!lastItem || !hasMore || isFetching) return;
+    if (lastItem.index < rows.length - 1) return;
+
+    setIsFetching(true);
+    const nextPage = currentPage + 1;
+    const params = new URLSearchParams({ page: String(nextPage), limit: "20" });
+    if (query) params.set("q", query);
+    fetch(`/api/artworks?${params}`)
+      .then((res) => res.json() as Promise<AICResponse>)
+      .then((json) => {
+        setAllArtworks((prev) => [...prev, ...json.data]);
+        setCurrentPage(nextPage);
+      })
+      .catch((err) => console.error("Failed to fetch next page:", err))
+      .finally(() => setIsFetching(false));
+  }, [virtualItems, rows.length, hasMore, isFetching, currentPage, query]);
 
   // Reset when filters change
-  const applyFilters = useCallback(async (newQuery: string) => {
+  async function applyFilters(newQuery: string) {
     setIsFetching(true);
     setAllArtworks([]);
     setCurrentPage(0);
@@ -91,7 +83,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
     } finally {
       setIsFetching(false);
     }
-  }, []);
+  }
 
   const handlePeriodChange = (value: string) => {
     setPeriod(value);
@@ -159,14 +151,18 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
                     {Array.from({ length: COLS }).map((_, i) => (
                       <div
                         key={i}
-                        className="skeleton w-full aspect-[3/4] rounded-lg"
+                        className="skeleton w-full aspect-3/4 rounded-lg"
                       />
                     ))}
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {row.map((artwork) => (
-                      <ArtworkCard key={artwork.id} artwork={artwork} />
+                      <ArtworkCard
+                        key={artwork.id}
+                        artwork={artwork}
+                        onClick={() => setSelected(artwork)}
+                      />
                     ))}
                   </div>
                 )}
@@ -183,6 +179,8 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
       )}
 
       {isFetching && allArtworks.length === 0 && <ArtworkSkeleton count={20} />}
+
+      <ArtworkModal artwork={selected} onClose={() => setSelected(null)} />
     </div>
   );
 }

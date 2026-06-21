@@ -1,0 +1,281 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e97] [cursor=pointer]:
+    - img [ref=e98]
+  - alert [ref=e116]
+  - navigation [ref=e131]:
+    - generic [ref=e132]:
+      - generic [ref=e133] [cursor=pointer]: Museum Collage
+      - generic [ref=e134]:
+        - img [ref=e135]
+        - searchbox [ref=e139]
+      - button "G" [ref=e141] [cursor=pointer]:
+        - generic [ref=e143]: G
+  - main [ref=e144]:
+    - generic [ref=e145]:
+      - heading "Explore Art" [level=1] [ref=e146]
+      - paragraph [ref=e147]: Browse the Art Institute of Chicago collection
+    - generic [ref=e148]:
+      - generic [ref=e149]:
+        - combobox [ref=e150]:
+          - option "Period" [selected]
+          - option "Ancient"
+          - option "Medieval"
+          - option "Renaissance"
+          - option "Modern"
+          - option "Contemporary"
+        - searchbox "Search artworks..." [ref=e151]
+      - generic [ref=e153]:
+        - generic [ref=e155]:
+          - generic [ref=e156] [cursor=pointer]:
+            - img "Starry Night and the Astronauts" [ref=e157]
+            - generic [ref=e158]:
+              - paragraph [ref=e159]: Starry Night and the Astronauts
+              - paragraph [ref=e160]: Alma Thomas
+              - paragraph [ref=e161]: "1972"
+          - generic [ref=e162] [cursor=pointer]:
+            - img "The Bedroom" [ref=e163]
+            - generic [ref=e164]:
+              - paragraph [ref=e165]: The Bedroom
+              - paragraph [ref=e166]: Vincent van Gogh (Dutch, 1853–1890)
+              - paragraph [ref=e167]: "1889"
+          - generic [ref=e168] [cursor=pointer]:
+            - img "Buddha Shakyamuni Seated in Meditation (Dhyanamudra)" [ref=e169]
+            - generic [ref=e170]:
+              - paragraph [ref=e171]: Buddha Shakyamuni Seated in Meditation (Dhyanamudra)
+              - paragraph [ref=e172]: India
+              - paragraph [ref=e173]: Chola period, about 12th century
+          - generic [ref=e174] [cursor=pointer]:
+            - img "Many Mansions" [ref=e175]
+            - generic [ref=e176]:
+              - paragraph [ref=e177]: Many Mansions
+              - paragraph [ref=e178]: Kerry James Marshall
+              - paragraph [ref=e179]: "1994"
+        - generic [ref=e181]:
+          - generic [ref=e182] [cursor=pointer]:
+            - img "Untitled" [ref=e183]
+            - generic [ref=e184]:
+              - paragraph [ref=e185]: Untitled
+              - paragraph [ref=e186]: Tanaka Atsuko
+              - paragraph [ref=e187]: "1964"
+          - generic [ref=e188] [cursor=pointer]:
+            - img "Paris Street; Rainy Day" [ref=e189]
+            - generic [ref=e190]:
+              - paragraph [ref=e191]: Paris Street; Rainy Day
+              - paragraph [ref=e192]: Gustave Caillebotte (French, 1848–1894)
+              - paragraph [ref=e193]: "1877"
+          - generic [ref=e194] [cursor=pointer]:
+            - img "A Sunday on La Grande Jatte — 1884" [ref=e195]
+            - generic [ref=e196]:
+              - paragraph [ref=e197]: A Sunday on La Grande Jatte — 1884
+              - paragraph [ref=e198]: Georges Seurat (French, 1859–1891)
+              - paragraph [ref=e199]: 1884–86, border added 1888–89
+          - generic [ref=e200] [cursor=pointer]:
+            - img "Weaving" [ref=e201]
+            - generic [ref=e202]:
+              - paragraph [ref=e203]: Weaving
+              - paragraph [ref=e204]: Diego Rivera (Mexican, 1886–1957)
+              - paragraph [ref=e205]: "1936"
+        - generic [ref=e207]:
+          - generic [ref=e208] [cursor=pointer]:
+            - img "City Landscape" [ref=e209]
+            - generic [ref=e210]:
+              - paragraph [ref=e211]: City Landscape
+              - paragraph [ref=e212]: Joan Mitchell
+              - paragraph [ref=e213]: "1955"
+          - generic [ref=e214] [cursor=pointer]:
+            - img "Coronation Stone of Moctezuma Xocoyotzin" [ref=e215]
+            - generic [ref=e216]:
+              - paragraph [ref=e217]: Coronation Stone of Moctezuma Xocoyotzin
+              - paragraph [ref=e218]: Maker unknown (Mexica, Aztec)
+              - paragraph [ref=e219]: c. 1503
+          - generic [ref=e220] [cursor=pointer]:
+            - img "Nightlife" [ref=e221]
+            - generic [ref=e222]:
+              - paragraph [ref=e223]: Nightlife
+              - paragraph [ref=e224]: Archibald John Motley Jr. (American, 1891–1981)
+              - paragraph [ref=e225]: "1943"
+          - generic [ref=e226] [cursor=pointer]:
+            - img "Hero Construction" [ref=e227]
+            - generic [ref=e228]:
+              - paragraph [ref=e229]: Hero Construction
+              - paragraph [ref=e230]: Richard Hunt
+              - paragraph [ref=e231]: "1958"
+        - generic [ref=e233]:
+          - generic [ref=e234] [cursor=pointer]:
+            - img "Nighthawks" [ref=e235]
+            - generic [ref=e236]:
+              - paragraph [ref=e237]: Nighthawks
+              - paragraph [ref=e238]: Edward Hopper (American, 1882–1967)
+              - paragraph [ref=e239]: "1942"
+          - generic [ref=e240] [cursor=pointer]:
+            - img "Veranda Post (Òpó Ògògá)" [ref=e241]
+            - generic [ref=e242]:
+              - paragraph [ref=e243]: Veranda Post (Òpó Ògògá)
+              - paragraph [ref=e244]: Olowe of Ise (died 1938)
+              - paragraph [ref=e245]: 1910-14
+          - generic [ref=e246] [cursor=pointer]:
+            - img "Blue and Green Music" [ref=e247]
+            - generic [ref=e248]:
+              - paragraph [ref=e249]: Blue and Green Music
+              - paragraph [ref=e250]: Georgia O'Keeffe (American, 1887–1986)
+              - paragraph [ref=e251]: 1919–21
+          - generic [ref=e252] [cursor=pointer]:
+            - img "Bathers by a River" [ref=e253]
+            - generic [ref=e254]:
+              - paragraph [ref=e255]: Bathers by a River
+              - paragraph [ref=e256]: Henri Matisse
+              - paragraph [ref=e257]: 1909–10, 1913, and 1916–17
+        - generic [ref=e259]:
+          - generic [ref=e260] [cursor=pointer]:
+            - img "The Dugout (preliminary work)" [ref=e261]
+            - generic [ref=e262]:
+              - paragraph [ref=e263]: The Dugout (preliminary work)
+              - paragraph [ref=e264]: Norman Rockwell (American, 1894–1978)
+              - paragraph [ref=e265]: "1948"
+          - generic [ref=e266] [cursor=pointer]:
+            - img "The Old Guitarist" [ref=e267]
+            - generic [ref=e268]:
+              - paragraph [ref=e269]: The Old Guitarist
+              - paragraph [ref=e270]: Pablo Picasso
+              - paragraph [ref=e271]: late 1903–early 1904
+          - generic [ref=e272] [cursor=pointer]:
+            - img "Under the Wave off Kanagawa (Kanagawa oki nami ura), also known as The Great Wave, from the series \"Thirty-Six Views of Mount Fuji (Fugaku sanjurokkei)\"" [ref=e273]
+            - generic [ref=e274]:
+              - paragraph [ref=e275]: Under the Wave off Kanagawa (Kanagawa oki nami ura), also known as The Great Wave, from the series "Thirty-Six Views of Mount Fuji (Fugaku sanjurokkei)"
+              - paragraph [ref=e276]: Katsushika Hokusai 葛飾 北斎
+              - paragraph [ref=e277]: 1830/33
+          - generic [ref=e278] [cursor=pointer]:
+            - img "The Assumption of the Virgin" [ref=e279]
+            - generic [ref=e280]:
+              - paragraph [ref=e281]: The Assumption of the Virgin
+              - paragraph [ref=e282]: El Greco (Doménikos Theotokópoulos; Greek, active in Spain, 1541–1614)
+              - paragraph [ref=e283]: 1577–79
+        - generic [ref=e285]:
+          - generic [ref=e286] [cursor=pointer]:
+            - img "Stacks of Wheat (End of Summer)" [ref=e287]
+            - generic [ref=e288]:
+              - paragraph [ref=e289]: Stacks of Wheat (End of Summer)
+              - paragraph [ref=e290]: Claude Monet (French, 1840–1926)
+              - paragraph [ref=e291]: 1890–91
+          - generic [ref=e292] [cursor=pointer]:
+            - img "American Gothic" [ref=e293]
+            - generic [ref=e294]:
+              - paragraph [ref=e295]: American Gothic
+              - paragraph [ref=e296]: Grant Wood (American, 1891–1942)
+              - paragraph [ref=e297]: "1930"
+          - generic [ref=e298] [cursor=pointer]:
+            - img "Water Lilies" [ref=e299]
+            - generic [ref=e300]:
+              - paragraph [ref=e301]: Water Lilies
+              - paragraph [ref=e302]: Claude Monet (French, 1840–1926)
+              - paragraph [ref=e303]: "1906"
+          - generic [ref=e304] [cursor=pointer]:
+            - img "Two Sisters (On the Terrace)" [ref=e305]
+            - generic [ref=e306]:
+              - paragraph [ref=e307]: Two Sisters (On the Terrace)
+              - paragraph [ref=e308]: Pierre-Auguste Renoir (French, 1841–1919)
+              - paragraph [ref=e309]: "1881"
+        - generic [ref=e311]:
+          - generic [ref=e312] [cursor=pointer]:
+            - img "Self-Portrait" [ref=e313]
+            - generic [ref=e314]:
+              - paragraph [ref=e315]: Self-Portrait
+              - paragraph [ref=e316]: Vincent van Gogh (Dutch, 1853–1890)
+              - paragraph [ref=e317]: "1887"
+          - generic [ref=e318] [cursor=pointer]:
+            - img "The Child's Bath" [ref=e319]
+            - generic [ref=e320]:
+              - paragraph [ref=e321]: The Child's Bath
+              - paragraph [ref=e322]: Mary Cassatt (American, 1844–1926)
+              - paragraph [ref=e323]: "1893"
+          - generic [ref=e324] [cursor=pointer]:
+            - img "White Crucifixion" [ref=e325]
+            - generic [ref=e326]:
+              - paragraph [ref=e327]: White Crucifixion
+              - paragraph [ref=e328]: Marc Chagall
+              - paragraph [ref=e329]: "1938"
+          - generic [ref=e330] [cursor=pointer]:
+            - img "La durée poignardée (Time Transfixed)" [ref=e331]
+            - generic [ref=e332]:
+              - paragraph [ref=e333]: La durée poignardée (Time Transfixed)
+              - paragraph [ref=e334]: René Magritte
+              - paragraph [ref=e335]: "1938"
+        - generic [ref=e337]:
+          - generic [ref=e338] [cursor=pointer]:
+            - img "Excavation" [ref=e339]
+            - generic [ref=e340]:
+              - paragraph [ref=e341]: Excavation
+              - paragraph [ref=e342]: Willem de Kooning
+              - paragraph [ref=e343]: "1950"
+          - generic [ref=e344] [cursor=pointer]:
+            - img "Cow's Skull with Calico Roses" [ref=e345]
+            - generic [ref=e346]:
+              - paragraph [ref=e347]: Cow's Skull with Calico Roses
+              - paragraph [ref=e348]: Georgia O'Keeffe (American, 1887–1986)
+              - paragraph [ref=e349]: "1931"
+          - generic [ref=e350] [cursor=pointer]:
+            - img "At the Moulin Rouge" [ref=e351]
+            - generic [ref=e352]:
+              - paragraph [ref=e353]: At the Moulin Rouge
+              - paragraph [ref=e354]: Henri de Toulouse-Lautrec (French, 1864–1901)
+              - paragraph [ref=e355]: 1892–95
+          - generic [ref=e356] [cursor=pointer]:
+            - img "Sky above Clouds IV" [ref=e357]
+            - generic [ref=e358]:
+              - paragraph [ref=e359]: Sky above Clouds IV
+              - paragraph [ref=e360]: Georgia O'Keeffe (American, 1887–1986)
+              - paragraph [ref=e361]: "1965"
+        - generic [ref=e363]:
+          - generic [ref=e364] [cursor=pointer]:
+            - img "Arrival of the Normandy Train, Gare Saint-Lazare" [ref=e365]
+            - generic [ref=e366]:
+              - paragraph [ref=e367]: Arrival of the Normandy Train, Gare Saint-Lazare
+              - paragraph [ref=e368]: Claude Monet (French, 1840–1926)
+              - paragraph [ref=e369]: "1877"
+          - generic [ref=e370] [cursor=pointer]:
+            - img "Mao" [ref=e371]
+            - generic [ref=e372]:
+              - paragraph [ref=e373]: Mao
+              - paragraph [ref=e374]: Andy Warhol
+              - paragraph [ref=e375]: "1972"
+          - generic [ref=e376] [cursor=pointer]:
+            - img "America Windows" [ref=e377]
+            - generic [ref=e378]:
+              - paragraph [ref=e379]: America Windows
+              - paragraph [ref=e380]: Marc Chagall
+              - paragraph [ref=e381]: "1977"
+          - generic [ref=e382] [cursor=pointer]:
+            - img "Figure with Meat" [ref=e383]
+            - generic [ref=e384]:
+              - paragraph [ref=e385]: Figure with Meat
+              - paragraph [ref=e386]: Francis Bacon
+              - paragraph [ref=e387]: "1954"
+      - dialog [ref=e388]:
+        - generic [ref=e389]:
+          - button "✕" [active] [ref=e390] [cursor=pointer]
+          - generic [ref=e391]:
+            - img "The Old Guitarist" [ref=e392]
+            - generic [ref=e393]:
+              - heading "The Old Guitarist" [level=3] [ref=e394]
+              - paragraph [ref=e395]: Pablo Picasso Spanish, active France, 1881–1973
+              - paragraph [ref=e396]: late 1903–early 1904
+            - generic [ref=e397]:
+              - paragraph [ref=e399]:
+                - text: Pablo Picasso made
+                - emphasis [ref=e400]: The Old Guitarist
+                - text: while working in Barcelona. In the paintings of his Blue Period (1901-04), the artist restricted himself to a cold, monochromatic blue palette, flattened forms, and emotional, psychological themes of human misery and alienation related to the work of such artists as Edvard Munch and Paul Gauguin. The elongated, angular figure of the blind musician also relates to Picasso's interest in Spanish art and, in particular, the great 16th-century artist El Greco. The image reﬂects the twenty-two-year-old Picasso's personal struggle and sympathy for the plight of the downtrodden; he knew what it was like to be poor, having been nearly penniless during all of 1902.
+              - generic [ref=e401]:
+                - generic [ref=e402]:
+                  - term [ref=e403]: "Medium:"
+                  - definition [ref=e404]: Oil on panel
+                - generic [ref=e405]:
+                  - term [ref=e406]: "Dimensions:"
+                  - definition [ref=e407]: 122.9 × 82.6 cm (48 3/8 × 32 1/2 in.)
+                - generic [ref=e408]:
+                  - term [ref=e409]: "Origin:"
+                  - definition [ref=e410]: Spain
+                - generic [ref=e411]:
+                  - term [ref=e412]: "Credit:"
+                  - definition [ref=e413]: Helen Birch Bartlett Memorial Collection
+            - button "Save to board" [ref=e415] [cursor=pointer]
+        - button "close" [ref=e417] [cursor=pointer]

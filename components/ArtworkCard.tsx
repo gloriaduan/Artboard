@@ -2,10 +2,19 @@
 
 import { AICArtwork, aicImageUrl } from "@/lib/aic-types";
 
-export default function ArtworkCard({ artwork }: { artwork: AICArtwork }) {
+export default function ArtworkCard({
+  artwork,
+  onClick,
+}: {
+  artwork: AICArtwork;
+  onClick?: () => void;
+}) {
   if (!artwork.image_id) {
     return (
-      <div className="relative w-full bg-base-200 rounded-lg aspect-3/4 flex items-center justify-center">
+      <div
+        onClick={onClick}
+        className="relative w-full bg-base-200 rounded-lg aspect-3/4 flex items-center justify-center cursor-pointer"
+      >
         <span className="text-xs text-base-content/40 px-2 text-center">
           No image available
         </span>
@@ -14,7 +23,10 @@ export default function ArtworkCard({ artwork }: { artwork: AICArtwork }) {
   }
 
   return (
-    <div className="group relative w-full rounded-lg overflow-hidden bg-base-200 aspect-3/4">
+    <div
+      onClick={onClick}
+      className="group relative w-full rounded-lg overflow-hidden bg-base-200 aspect-3/4 cursor-pointer"
+    >
       {/* Plain img so the browser fetches directly from AIC — next/image proxies through
           the server which AIC's IIIF CDN blocks with a 403. */}
       <img

@@ -1,0 +1,85 @@
+- generic [ref=e1]:
+  - generic [ref=e101]:
+    - generic [ref=e102]:
+      - generic [ref=e104] [cursor=pointer]: Museum Collage
+      - generic [ref=e105]:
+        - generic [ref=e106] [cursor=pointer]: Explore
+        - generic [ref=e107] [cursor=pointer]: My Board
+        - button "Sign in" [ref=e108] [cursor=pointer]
+    - dialog [ref=e117]:
+      - generic [ref=e118]:
+        - button "✕" [active] [ref=e119] [cursor=pointer]
+        - heading "Sign in" [level=3] [ref=e120]
+        - generic [ref=e121]:
+          - generic [ref=e122]:
+            - generic [ref=e123]: Email
+            - textbox "Email" [ref=e124]:
+              - /placeholder: you@example.com
+          - generic [ref=e125]:
+            - generic [ref=e126]: Password
+            - textbox "Password" [ref=e127]:
+              - /placeholder: ••••••••
+          - button "Sign in" [ref=e128] [cursor=pointer]
+      - button "close" [ref=e130] [cursor=pointer]
+  - generic [ref=e109]:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - generic:
+              - img "A Sunday on La Grande Jatte"
+            - generic:
+              - img "American Gothic"
+            - generic:
+              - img "At the Moulin Rouge"
+            - generic:
+              - img "The Bedroom"
+            - generic:
+              - img "Carnival in Arcueil"
+          - generic:
+            - generic:
+              - img "A Sunday on La Grande Jatte"
+            - generic:
+              - img "American Gothic"
+            - generic:
+              - img "At the Moulin Rouge"
+            - generic:
+              - img "The Bedroom"
+            - generic:
+              - img "Carnival in Arcueil"
+        - generic:
+          - generic:
+            - generic:
+              - img "Nighthawks"
+            - generic:
+              - img "Self-Portrait"
+            - generic:
+              - img "Stacks of Wheat"
+            - generic:
+              - img "The Basket of Apples"
+            - generic:
+              - img "Two Sisters"
+            - generic:
+              - img "Woman at Her Toilette"
+          - generic:
+            - generic:
+              - img "Nighthawks"
+            - generic:
+              - img "Self-Portrait"
+            - generic:
+              - img "Stacks of Wheat"
+            - generic:
+              - img "The Basket of Apples"
+            - generic:
+              - img "Two Sisters"
+            - generic:
+              - img "Woman at Her Toilette"
+    - generic [ref=e110]:
+      - heading "Your personal art collection" [level=1] [ref=e111]
+      - paragraph [ref=e112]: Save artworks from the world's greatest museums and arrange them into your own collage board.
+      - generic [ref=e113]:
+        - button "Get started" [ref=e114] [cursor=pointer]
+        - generic [ref=e115] [cursor=pointer]: Explore artworks
+  - button "Open Next.js Dev Tools" [ref=e97] [cursor=pointer]:
+    - img [ref=e98]
+  - alert [ref=e116]
