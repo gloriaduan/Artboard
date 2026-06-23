@@ -1,0 +1,11 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e5] [cursor=pointer]: Museum Collage
+    - generic [ref=e6]:
+      - generic [ref=e7] [cursor=pointer]: Explore
+      - generic [ref=e8] [cursor=pointer]: My Board
+      - button "Sign in" [ref=e9] [cursor=pointer]
+  - main [ref=e10]
+  - button "Open Next.js Dev Tools" [ref=e97] [cursor=pointer]:
+    - img [ref=e98]
+  - alert [ref=e101]

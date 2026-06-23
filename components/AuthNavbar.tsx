@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import styles from "./AuthNavbar.module.css";
@@ -54,7 +55,11 @@ export default function AuthNavbar({ user }: { user: User }) {
             <li>
               <span className={styles.dropdownEmail}>{user.email}</span>
             </li>
-            <li><a className={styles.dropdownItem}>Profile</a></li>
+            <li>
+              <Link href="/saved" className={styles.dropdownItem}>
+                Saved Artworks
+              </Link>
+            </li>
             <li><a className={styles.dropdownItem}>Settings</a></li>
             <li>
               <button onClick={handleSignOut} className={styles.dropdownItemDanger}>

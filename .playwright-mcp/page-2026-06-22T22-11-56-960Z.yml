@@ -1,0 +1,25 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4] [cursor=pointer]: Museum Collage
+      - generic [ref=e5]:
+        - img [ref=e6]
+        - searchbox [ref=e10]
+      - button "G" [ref=e12] [cursor=pointer]:
+        - generic [ref=e14]: G
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - heading "Saved Artworks" [level=1] [ref=e17]
+      - paragraph [ref=e18]: Artworks you've saved to add to your boards
+  - generic [ref=e72] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e73]:
+      - img [ref=e74]
+    - generic [ref=e77]:
+      - button "Open issues overlay" [ref=e78]:
+        - generic [ref=e79]:
+          - generic [ref=e80]: "0"
+          - generic [ref=e81]: "1"
+        - generic [ref=e82]: Issue
+      - button "Collapse issues badge" [ref=e83]:
+        - img [ref=e84]
+  - alert [ref=e86]

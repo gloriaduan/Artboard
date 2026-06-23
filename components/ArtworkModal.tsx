@@ -1,19 +1,28 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import {
   AICArtwork,
   AICArtworkDetail,
   AICArtworkResponse,
   aicImageUrl,
 } from "@/lib/aic-types";
+import {
+  saveArtworkAction,
+  removeSavedArtworkAction,
+} from "@/app/actions/saved-artworks";
 
 type Props = {
   artwork: AICArtwork | null;
   onClose: () => void;
+  initialSaved?: boolean;
 };
 
-export default function ArtworkModal({ artwork, onClose }: Props) {
+export default function ArtworkModal({
+  artwork,
+  onClose,
+  initialSaved = false,
+}: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   // Effect is used only for imperative DOM control of the native <dialog>.
@@ -34,7 +43,13 @@ export default function ArtworkModal({ artwork, onClose }: Props) {
         </form>
 
         {/* Keyed by id so detail/loading state initializes fresh per artwork. */}
-        {artwork && <ArtworkContent key={artwork.id} artwork={artwork} />}
+        {artwork && (
+          <ArtworkContent
+            key={artwork.id}
+            artwork={artwork}
+            initialSaved={initialSaved}
+          />
+        )}
       </div>
 
       <form method="dialog" className="modal-backdrop">
@@ -44,9 +59,36 @@ export default function ArtworkModal({ artwork, onClose }: Props) {
   );
 }
 
-function ArtworkContent({ artwork }: { artwork: AICArtwork }) {
+function ArtworkContent({
+  artwork,
+  initialSaved,
+}: {
+  artwork: AICArtwork;
+  initialSaved: boolean;
+}) {
   const [detail, setDetail] = useState<AICArtworkDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [saved, setSaved] = useState(initialSaved);
+  const [isPending, startTransition] = useTransition();
+
+  const canSave = artwork.image_id !== null;
+
+  function toggleSave() {
+    startTransition(async () => {
+      if (saved) {
+        await removeSavedArtworkAction(artwork.id);
+        setSaved(false);
+      } else {
+        if (!artwork.image_id) return;
+        await saveArtworkAction({
+          aicId: artwork.id,
+          title: artwork.title,
+          imageId: artwork.image_id,
+        });
+        setSaved(true);
+      }
+    });
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -150,8 +192,17 @@ function ArtworkContent({ artwork }: { artwork: AICArtwork }) {
         ) : null}
 
         <div className="modal-action mt-2">
-          {/* TODO: implement save to board */}
-          <button className="btn btn-primary">Save to board</button>
+          <button
+            type="button"
+            onClick={toggleSave}
+            disabled={isPending || !canSave}
+            className={`btn ${saved ? "btn-outline" : "btn-primary"}`}
+          >
+            {isPending && (
+              <span className="loading loading-spinner loading-xs" />
+            )}
+            {saved ? "Saved ✓" : "Save to board"}
+          </button>
         </div>
       </div>
     </div>

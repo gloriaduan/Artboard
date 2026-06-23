@@ -9,6 +9,9 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/SavedArtwork'
+export type * from './models/Board'
+export type * from './models/BoardPlacement'
 export type * from './models/Session'
 export type * from './models/Account'
 export type * from './models/Verification'

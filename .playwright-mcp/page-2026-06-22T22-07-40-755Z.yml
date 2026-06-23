@@ -1,0 +1,152 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4] [cursor=pointer]: Museum Collage
+      - generic [ref=e5]:
+        - img [ref=e6]
+        - searchbox [ref=e10]
+      - button "G" [ref=e12] [cursor=pointer]:
+        - generic [ref=e14]: G
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - heading "Explore Art" [level=1] [ref=e17]
+      - paragraph [ref=e18]: Browse the Art Institute of Chicago collection
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - combobox [ref=e21]:
+          - option "Period" [selected]
+          - option "Ancient"
+          - option "Medieval"
+          - option "Renaissance"
+          - option "Modern"
+          - option "Contemporary"
+        - searchbox "Search artworks..." [ref=e22]
+      - generic [ref=e24]:
+        - generic [ref=e26]:
+          - generic [ref=e27] [cursor=pointer]:
+            - img "Starry Night and the Astronauts" [ref=e28]
+            - generic [ref=e29]:
+              - paragraph [ref=e30]: Starry Night and the Astronauts
+              - paragraph [ref=e31]: Alma Thomas
+              - paragraph [ref=e32]: "1972"
+          - generic [ref=e33] [cursor=pointer]:
+            - img "The Bedroom" [ref=e34]
+            - generic [ref=e35]:
+              - paragraph [ref=e36]: The Bedroom
+              - paragraph [ref=e37]: Vincent van Gogh (Dutch, 1853–1890)
+              - paragraph [ref=e38]: "1889"
+          - generic [ref=e39] [cursor=pointer]:
+            - img "Buddha Shakyamuni Seated in Meditation (Dhyanamudra)" [ref=e40]
+            - generic [ref=e41]:
+              - paragraph [ref=e42]: Buddha Shakyamuni Seated in Meditation (Dhyanamudra)
+              - paragraph [ref=e43]: India
+              - paragraph [ref=e44]: Chola period, about 12th century
+          - generic [ref=e45] [cursor=pointer]:
+            - img "Many Mansions" [ref=e46]
+            - generic [ref=e47]:
+              - paragraph [ref=e48]: Many Mansions
+              - paragraph [ref=e49]: Kerry James Marshall
+              - paragraph [ref=e50]: "1994"
+        - generic [ref=e52]:
+          - generic [ref=e53] [cursor=pointer]:
+            - img "Untitled" [ref=e54]
+            - generic [ref=e55]:
+              - paragraph [ref=e56]: Untitled
+              - paragraph [ref=e57]: Tanaka Atsuko
+              - paragraph [ref=e58]: "1964"
+          - generic [ref=e59] [cursor=pointer]:
+            - img "Paris Street; Rainy Day" [ref=e60]
+            - generic [ref=e61]:
+              - paragraph [ref=e62]: Paris Street; Rainy Day
+              - paragraph [ref=e63]: Gustave Caillebotte (French, 1848–1894)
+              - paragraph [ref=e64]: "1877"
+          - generic [ref=e65] [cursor=pointer]:
+            - img "A Sunday on La Grande Jatte — 1884" [ref=e66]
+            - generic [ref=e67]:
+              - paragraph [ref=e68]: A Sunday on La Grande Jatte — 1884
+              - paragraph [ref=e69]: Georges Seurat (French, 1859–1891)
+              - paragraph [ref=e70]: 1884–86, border added 1888–89
+          - generic [ref=e71] [cursor=pointer]:
+            - img "Weaving" [ref=e72]
+            - generic [ref=e73]:
+              - paragraph [ref=e74]: Weaving
+              - paragraph [ref=e75]: Diego Rivera (Mexican, 1886–1957)
+              - paragraph [ref=e76]: "1936"
+        - generic [ref=e78]:
+          - generic [ref=e79] [cursor=pointer]:
+            - img "City Landscape" [ref=e80]
+            - generic [ref=e81]:
+              - paragraph [ref=e82]: City Landscape
+              - paragraph [ref=e83]: Joan Mitchell
+              - paragraph [ref=e84]: "1955"
+          - generic [ref=e85] [cursor=pointer]:
+            - img "Coronation Stone of Moctezuma Xocoyotzin" [ref=e86]
+            - generic [ref=e87]:
+              - paragraph [ref=e88]: Coronation Stone of Moctezuma Xocoyotzin
+              - paragraph [ref=e89]: Maker unknown (Mexica, Aztec)
+              - paragraph [ref=e90]: c. 1503
+          - generic [ref=e91] [cursor=pointer]:
+            - img "Nightlife" [ref=e92]
+            - generic [ref=e93]:
+              - paragraph [ref=e94]: Nightlife
+              - paragraph [ref=e95]: Archibald John Motley Jr. (American, 1891–1981)
+              - paragraph [ref=e96]: "1943"
+          - generic [ref=e97] [cursor=pointer]:
+            - img "Hero Construction" [ref=e98]
+            - generic [ref=e99]:
+              - paragraph [ref=e100]: Hero Construction
+              - paragraph [ref=e101]: Richard Hunt
+              - paragraph [ref=e102]: "1958"
+        - generic [ref=e104]:
+          - generic [ref=e105] [cursor=pointer]:
+            - img "Nighthawks" [ref=e106]
+            - generic [ref=e107]:
+              - paragraph [ref=e108]: Nighthawks
+              - paragraph [ref=e109]: Edward Hopper (American, 1882–1967)
+              - paragraph [ref=e110]: "1942"
+          - generic [ref=e111] [cursor=pointer]:
+            - img "Veranda Post (Òpó Ògògá)" [ref=e112]
+            - generic [ref=e113]:
+              - paragraph [ref=e114]: Veranda Post (Òpó Ògògá)
+              - paragraph [ref=e115]: Olowe of Ise (died 1938)
+              - paragraph [ref=e116]: 1910-14
+          - generic [ref=e117] [cursor=pointer]:
+            - img "Blue and Green Music" [ref=e118]
+            - generic [ref=e119]:
+              - paragraph [ref=e120]: Blue and Green Music
+              - paragraph [ref=e121]: Georgia O'Keeffe (American, 1887–1986)
+              - paragraph [ref=e122]: 1919–21
+          - generic [ref=e123] [cursor=pointer]:
+            - img "Bathers by a River" [ref=e124]
+            - generic [ref=e125]:
+              - paragraph [ref=e126]: Bathers by a River
+              - paragraph [ref=e127]: Henri Matisse
+              - paragraph [ref=e128]: 1909–10, 1913, and 1916–17
+        - generic [ref=e130]:
+          - generic [ref=e131] [cursor=pointer]:
+            - img "The Dugout (preliminary work)" [ref=e132]
+            - generic [ref=e133]:
+              - paragraph [ref=e134]: The Dugout (preliminary work)
+              - paragraph [ref=e135]: Norman Rockwell (American, 1894–1978)
+              - paragraph [ref=e136]: "1948"
+          - generic [ref=e137] [cursor=pointer]:
+            - img "The Old Guitarist" [ref=e138]
+            - generic [ref=e139]:
+              - paragraph [ref=e140]: The Old Guitarist
+              - paragraph [ref=e141]: Pablo Picasso
+              - paragraph [ref=e142]: late 1903–early 1904
+          - generic [ref=e143] [cursor=pointer]:
+            - img "Under the Wave off Kanagawa (Kanagawa oki nami ura), also known as The Great Wave, from the series \"Thirty-Six Views of Mount Fuji (Fugaku sanjurokkei)\"" [ref=e144]
+            - generic [ref=e145]:
+              - paragraph [ref=e146]: Under the Wave off Kanagawa (Kanagawa oki nami ura), also known as The Great Wave, from the series "Thirty-Six Views of Mount Fuji (Fugaku sanjurokkei)"
+              - paragraph [ref=e147]: Katsushika Hokusai 葛飾 北斎
+              - paragraph [ref=e148]: 1830/33
+          - generic [ref=e149] [cursor=pointer]:
+            - img "The Assumption of the Virgin" [ref=e150]
+            - generic [ref=e151]:
+              - paragraph [ref=e152]: The Assumption of the Virgin
+              - paragraph [ref=e153]: El Greco (Doménikos Theotokópoulos; Greek, active in Spain, 1541–1614)
+              - paragraph [ref=e154]: 1577–79
+  - button "Open Next.js Dev Tools" [ref=e160] [cursor=pointer]:
+    - img [ref=e161]
+  - alert [ref=e164]

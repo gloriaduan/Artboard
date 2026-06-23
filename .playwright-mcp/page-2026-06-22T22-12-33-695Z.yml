@@ -1,0 +1,45 @@
+- generic [ref=e1]:
+  - navigation [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64] [cursor=pointer]: Museum Collage
+      - generic [ref=e65]:
+        - img [ref=e66]
+        - searchbox [ref=e70]
+      - button "G" [ref=e72] [cursor=pointer]:
+        - generic [ref=e74]: G
+  - main [ref=e75]:
+    - generic [ref=e76]:
+      - heading "Saved Artworks" [level=1] [ref=e77]
+      - paragraph [ref=e78]: Artworks you've saved to add to your boards
+    - generic [ref=e80] [cursor=pointer]:
+      - img "The Bedroom" [ref=e81]
+      - paragraph [ref=e83]: The Bedroom
+    - dialog [ref=e84]:
+      - generic [ref=e85]:
+        - button "✕" [active] [ref=e86] [cursor=pointer]
+        - generic [ref=e87]:
+          - img "The Bedroom" [ref=e89]
+          - generic [ref=e90]:
+            - heading "The Bedroom" [level=3] [ref=e92]
+            - generic [ref=e93]:
+              - generic [ref=e94]:
+                - paragraph [ref=e95]: Perhaps the most famous depiction of a bedroom in Western art history, this vibrant painting documents Vincent van Gogh’s sleeping quarters in his beloved “Yellow House” in Arles, France. The composition exists in three versions, the first of which Van Gogh conceived in October 1888, a month after he moved into the home. In a letter to his brother Theo, he described having painted “the walls pale lilac, the floor in a broken and faded red, the chairs and the bed chrome yellow, the pillows and the sheet very pale lemon green, the bedspread blood-red, the dressing table orange, the washbasin blue, the window green.” With its bold colors, thick and broken brushwork, and sharply receding lines, the picture might suggest a nervous energy. But the artist understood it as a calming and restful image.
+                - paragraph [ref=e96]: The painting in the Art Institute’s collection is Van Gogh’s second version of the scene, made nearly a year after the first, in September 1889. He produced a third, smaller version at the same time as a gift for his mother and sister.
+              - generic [ref=e97]:
+                - generic [ref=e98]:
+                  - term [ref=e99]: "Medium:"
+                  - definition [ref=e100]: Oil on canvas
+                - generic [ref=e101]:
+                  - term [ref=e102]: "Dimensions:"
+                  - definition [ref=e103]: "73.6 × 92.3 cm (29 × 36 5/8 in.); Framed: 88.9 × 108 × 8.9 cm (35 × 42 1/2 × 3 1/2 in.)"
+                - generic [ref=e104]:
+                  - term [ref=e105]: "Origin:"
+                  - definition [ref=e106]: Saint-Rémy-de-Provence
+                - generic [ref=e107]:
+                  - term [ref=e108]: "Credit:"
+                  - definition [ref=e109]: Helen Birch Bartlett Memorial Collection
+            - button "Saved ✓" [ref=e111] [cursor=pointer]
+      - button "close" [ref=e113] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e57] [cursor=pointer]:
+    - img [ref=e58]
+  - alert [ref=e61]

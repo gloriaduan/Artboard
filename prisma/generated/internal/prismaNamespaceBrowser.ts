@@ -52,6 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  SavedArtwork: 'SavedArtwork',
+  Board: 'Board',
+  BoardPlacement: 'BoardPlacement',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification'
@@ -84,6 +87,43 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const SavedArtworkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  aicId: 'aicId',
+  title: 'title',
+  imageId: 'imageId',
+  createdAt: 'createdAt'
+} as const
+
+export type SavedArtworkScalarFieldEnum = (typeof SavedArtworkScalarFieldEnum)[keyof typeof SavedArtworkScalarFieldEnum]
+
+
+export const BoardScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoardScalarFieldEnum = (typeof BoardScalarFieldEnum)[keyof typeof BoardScalarFieldEnum]
+
+
+export const BoardPlacementScalarFieldEnum = {
+  id: 'id',
+  boardId: 'boardId',
+  savedId: 'savedId',
+  x: 'x',
+  y: 'y',
+  width: 'width',
+  height: 'height',
+  z: 'z'
+} as const
+
+export type BoardPlacementScalarFieldEnum = (typeof BoardPlacementScalarFieldEnum)[keyof typeof BoardPlacementScalarFieldEnum]
 
 
 export const SessionScalarFieldEnum = {

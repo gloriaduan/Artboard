@@ -1,0 +1,17 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64] [cursor=pointer]: Museum Collage
+      - generic [ref=e65]:
+        - img [ref=e66]
+        - searchbox [ref=e70]
+      - button "G" [ref=e72] [cursor=pointer]:
+        - generic [ref=e74]: G
+  - main [ref=e75]:
+    - generic [ref=e76]:
+      - heading "Saved Artworks" [level=1] [ref=e77]
+      - paragraph [ref=e78]: Artworks you've saved to add to your boards
+    - paragraph [ref=e114]: No saved artworks yet.
+  - button "Open Next.js Dev Tools" [ref=e57] [cursor=pointer]:
+    - img [ref=e58]
+  - alert [ref=e61]

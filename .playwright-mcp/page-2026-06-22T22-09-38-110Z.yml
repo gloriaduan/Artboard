@@ -1,0 +1,126 @@
+- generic [ref=e1]:
+  - generic [active]:
+    - generic [ref=e199]:
+      - generic [ref=e200]:
+        - generic [ref=e201]:
+          - navigation [ref=e202]:
+            - button "previous" [disabled] [ref=e203]:
+              - img "previous" [ref=e204]
+            - generic [ref=e206]:
+              - generic [ref=e207]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e208]:
+              - img "next" [ref=e209]
+          - img
+        - generic [ref=e211]:
+          - link "Next.js 16.2.6 (stale) Turbopack" [ref=e212] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e213]
+            - generic "There is a newer version (16.2.9) available, upgrade recommended!" [ref=e215]: Next.js 16.2.6 (stale)
+            - generic [ref=e216]: Turbopack
+          - img
+      - dialog "Runtime Error" [ref=e218]:
+        - generic [ref=e221]:
+          - generic [ref=e222]:
+            - generic [ref=e223]:
+              - generic [ref=e224]:
+                - generic [ref=e225]: Runtime Error
+                - generic [ref=e226]: Server
+              - generic [ref=e227]:
+                - button "Copy Error Info" [ref=e228] [cursor=pointer]:
+                  - img [ref=e229]
+                - button "No related documentation found" [disabled] [ref=e231]:
+                  - img [ref=e232]
+                - button "Attach Node.js inspector" [ref=e234] [cursor=pointer]:
+                  - img [ref=e235]
+            - generic [ref=e244]: Transactions are not supported in HTTP mode
+          - generic [ref=e245]:
+            - generic [ref=e246]:
+              - paragraph [ref=e248]:
+                - img [ref=e250]
+                - generic [ref=e254]: lib/dal/saved-artworks.ts (78:15) @ saveArtwork
+                - button "Open in editor" [ref=e255] [cursor=pointer]:
+                  - img [ref=e257]
+              - generic [ref=e260]:
+                - generic [ref=e261]: "76 | const { aicId, title, imageId } = validateSaveInput(input);"
+                - generic [ref=e262]: 77 |
+                - generic [ref=e263]: "> 78 | const row = await db.savedArtwork.upsert({"
+                - generic [ref=e264]: "| ^"
+                - generic [ref=e265]: "79 | where: { userId_aicId: { userId: user.id, aicId } },"
+                - generic [ref=e266]: "80 | update: {},"
+                - generic [ref=e267]: "81 | create: { userId: user.id, aicId, title, imageId },"
+            - generic [ref=e268]:
+              - generic [ref=e269]:
+                - paragraph [ref=e270]:
+                  - text: Call Stack
+                  - generic [ref=e271]: "13"
+                - button "Show 5 ignore-listed frame(s)" [ref=e272] [cursor=pointer]:
+                  - text: Show 5 ignore-listed frame(s)
+                  - img [ref=e273]
+              - generic [ref=e275]:
+                - generic [ref=e276]:
+                  - text: saveArtwork
+                  - button "Open saveArtwork in editor" [ref=e277] [cursor=pointer]:
+                    - img [ref=e278]
+                - text: lib/dal/saved-artworks.ts (78:15)
+              - generic [ref=e280]:
+                - generic [ref=e281]:
+                  - text: saveArtworkAction
+                  - button "Open saveArtworkAction in editor" [ref=e282] [cursor=pointer]:
+                    - img [ref=e283]
+                - text: app/actions/saved-artworks.ts (19:22)
+              - generic [ref=e285]:
+                - generic [ref=e286]:
+                  - text: ArtworkModal
+                  - button "Open ArtworkModal in editor" [ref=e287] [cursor=pointer]:
+                    - img [ref=e288]
+                - text: components/ArtworkModal.tsx (47:11)
+              - generic [ref=e290]:
+                - generic [ref=e291]:
+                  - text: ArtworkGallery
+                  - button "Open ArtworkGallery in editor" [ref=e292] [cursor=pointer]:
+                    - img [ref=e293]
+                - text: components/ArtworkGallery.tsx (183:7)
+              - generic [ref=e295]:
+                - generic [ref=e296]:
+                  - text: GalleryLoader
+                  - button "Open GalleryLoader in editor" [ref=e297] [cursor=pointer]:
+                    - img [ref=e298]
+                - text: components/Dashboard.tsx (9:5)
+              - generic [ref=e300]:
+                - generic [ref=e301]:
+                  - text: Dashboard
+                  - button "Open Dashboard in editor" [ref=e302] [cursor=pointer]:
+                    - img [ref=e303]
+                - text: components/Dashboard.tsx (27:9)
+              - generic [ref=e305]:
+                - generic [ref=e306]:
+                  - text: AuthenticatedApp
+                  - button "Open AuthenticatedApp in editor" [ref=e307] [cursor=pointer]:
+                    - img [ref=e308]
+                - text: app/page.tsx (17:9)
+              - generic [ref=e310]:
+                - generic [ref=e311]:
+                  - text: Home
+                  - button "Open Home in editor" [ref=e312] [cursor=pointer]:
+                    - img [ref=e313]
+                - text: app/page.tsx (42:7)
+        - generic [ref=e315]: "1"
+        - generic [ref=e316]: "2"
+    - generic [ref=e159] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e160]:
+        - img [ref=e161]
+      - generic [ref=e317]:
+        - button "Open issues overlay" [ref=e318]:
+          - generic [ref=e319]:
+            - generic [ref=e320]: "0"
+            - generic [ref=e321]: "1"
+          - generic [ref=e322]: Issue
+        - button "Collapse issues badge" [ref=e323]:
+          - img [ref=e324]
+  - generic [ref=e327]:
+    - img [ref=e328]
+    - heading "This page couldn’t load" [level=1] [ref=e330]
+    - paragraph [ref=e331]: A server error occurred. Reload to try again.
+    - button "Reload" [ref=e334] [cursor=pointer]
+  - paragraph [ref=e335]: ERROR 250406081
