@@ -34,7 +34,12 @@ export default function ArtworkModal({
   }, [artwork]);
 
   return (
-    <dialog ref={dialogRef} className="modal" onClose={onClose}>
+    <dialog
+      ref={dialogRef}
+      className="modal"
+      onClose={onClose}
+      aria-labelledby="artwork-modal-title"
+    >
       <div className="modal-box w-11/12 max-w-5xl max-h-[85vh] p-0 overflow-hidden">
         <form method="dialog">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10">
@@ -128,7 +133,9 @@ function ArtworkContent({
 
       <div className="md:w-1/2 flex flex-col gap-4 p-6 overflow-y-auto">
         <div className="flex flex-col gap-1">
-          <h3 className="font-bold text-xl pr-8">{artwork.title}</h3>
+          <h3 id="artwork-modal-title" className="font-bold text-xl pr-8">
+            {artwork.title}
+          </h3>
           {artwork.artist_display && (
             <p className="text-sm text-base-content/70 whitespace-pre-line">
               {artwork.artist_display}
@@ -201,7 +208,7 @@ function ArtworkContent({
             {isPending && (
               <span className="loading loading-spinner loading-xs" />
             )}
-            {saved ? "Saved ✓" : "Save to board"}
+            {saved ? "Saved ✓" : "Save artwork"}
           </button>
         </div>
       </div>

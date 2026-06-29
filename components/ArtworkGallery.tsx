@@ -1,101 +1,46 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { AICArtwork, AICResponse } from "@/lib/aic-types";
 import ArtworkCard from "./ArtworkCard";
-import ArtworkModal from "./ArtworkModal";
 import ArtworkSkeleton from "./ArtworkSkeleton";
-
-const COLS = 4;
-const CARD_HEIGHT = 320; // px estimate per row — virtualizer needs a fixed estimate
-const OVERSCAN = 3;
+import ArtworkModal from "./ArtworkModal";
+import styles from "./ArtworkGallery.module.css";
+import pageRange from "@/lib/utils/artwork-gallery/helpers";
 
 type Props = {
   initialData: AICArtwork[];
   totalPages: number;
 };
 
-function chunkIntoRows(items: AICArtwork[], cols: number): AICArtwork[][] {
-  const rows: AICArtwork[][] = [];
-  for (let i = 0; i < items.length; i += cols) {
-    rows.push(items.slice(i, i + cols));
-  }
-  return rows;
+async function fetchArtworks(page: number): Promise<AICArtwork[]> {
+  const res = await fetch(`/api/artworks?limit=20&page=${page}`);
+  if (!res.ok) throw new Error("Failed to load artworks");
+  const data: AICResponse = await res.json();
+  return data.data;
 }
 
 export default function ArtworkGallery({ initialData, totalPages }: Props) {
-  const [allArtworks, setAllArtworks] = useState<AICArtwork[]>(initialData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isFetching, setIsFetching] = useState(false);
-  const [query, setQuery] = useState("");
-  const [period, setPeriod] = useState("");
-  const [selected, setSelected] = useState<AICArtwork | null>(null);
+  const [page, setPage] = useState(1);
+  const [selectedArtwork, setSelectedArtwork] = useState<AICArtwork | null>(
+    null,
+  );
 
-  const parentRef = useRef<HTMLDivElement>(null);
-
-  const rows = chunkIntoRows(allArtworks, COLS);
-  const hasMore = currentPage < totalPages;
-
-  const virtualizer = useVirtualizer({
-    count: hasMore ? rows.length + 1 : rows.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => CARD_HEIGHT,
-    overscan: OVERSCAN,
+  const { data, isError, isFetching, refetch } = useQuery({
+    queryKey: ["artworks", page],
+    queryFn: () => fetchArtworks(page),
+    initialData: page === 1 ? initialData : undefined,
+    placeholderData: keepPreviousData,
   });
 
-  // Trigger fetch when last virtual row comes into view
-  const virtualItems = virtualizer.getVirtualItems();
+  const artworks = data ?? [];
 
-  useEffect(() => {
-    const lastItem = virtualItems[virtualItems.length - 1];
-    if (!lastItem || !hasMore || isFetching) return;
-    if (lastItem.index < rows.length - 1) return;
-
-    setIsFetching(true);
-    const nextPage = currentPage + 1;
-    const params = new URLSearchParams({ page: String(nextPage), limit: "20" });
-    if (query) params.set("q", query);
-    fetch(`/api/artworks?${params}`)
-      .then((res) => res.json() as Promise<AICResponse>)
-      .then((json) => {
-        setAllArtworks((prev) => [...prev, ...json.data]);
-        setCurrentPage(nextPage);
-      })
-      .catch((err) => console.error("Failed to fetch next page:", err))
-      .finally(() => setIsFetching(false));
-  }, [virtualItems, rows.length, hasMore, isFetching, currentPage, query]);
-
-  // Reset when filters change
-  async function applyFilters(newQuery: string) {
-    setIsFetching(true);
-    setAllArtworks([]);
-    setCurrentPage(0);
-    try {
-      const params = new URLSearchParams({ page: "1", limit: "20" });
-      if (newQuery) params.set("q", newQuery);
-      const res = await fetch(`/api/artworks?${params}`);
-      const json: AICResponse = await res.json();
-      setAllArtworks(json.data);
-      setCurrentPage(1);
-    } catch (err) {
-      console.error("Filter fetch failed:", err);
-    } finally {
-      setIsFetching(false);
-    }
+  function goToPage(next: number) {
+    if (next < 1 || next > totalPages || next === page) return;
+    setPage(next);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
-
-  const handlePeriodChange = (value: string) => {
-    setPeriod(value);
-    const q = value ? `${value} ${query}`.trim() : query;
-    applyFilters(q);
-  };
-
-  const handleQueryChange = (value: string) => {
-    setQuery(value);
-    const q = period ? `${period} ${value}`.trim() : value;
-    applyFilters(q);
-  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -103,84 +48,136 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
       <div className="flex gap-2 flex-wrap">
         <select
           className="select select-sm border border-base-content/20"
-          value={period}
-          onChange={(e) => handlePeriodChange(e.target.value)}
+          aria-label="Filter by period"
         >
-          <option value="">Period</option>
+          <option value="">Select a period</option>
           <option value="ancient">Ancient</option>
           <option value="medieval">Medieval</option>
           <option value="renaissance">Renaissance</option>
           <option value="modern">Modern</option>
           <option value="contemporary">Contemporary</option>
         </select>
-
-        <input
-          type="search"
-          placeholder="Search artworks..."
-          className="input input-sm border border-base-content/20 flex-1 min-w-40"
-          value={query}
-          onChange={(e) => handleQueryChange(e.target.value)}
-        />
+        {/* Search */}
+        <form role="search" className={styles.search}>
+          <svg
+            className={styles.searchIcon}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <g
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </g>
+          </svg>
+          <input
+            className={styles.searchInput}
+            type="search"
+            placeholder="Search artworks, artists…"
+            aria-label="Search artworks and artists"
+          />
+        </form>
       </div>
 
-      {/* Virtualized scroll container */}
-      <div ref={parentRef} className="h-[calc(100vh-200px)] overflow-auto">
-        <div
-          style={{ height: virtualizer.getTotalSize(), position: "relative" }}
-        >
-          {virtualizer.getVirtualItems().map((virtualRow) => {
-            const isLoaderRow = virtualRow.index >= rows.length;
-            const row = rows[virtualRow.index];
-
-            return (
-              <div
-                key={virtualRow.key}
-                data-index={virtualRow.index}
-                ref={virtualizer.measureElement}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  transform: `translateY(${virtualRow.start}px)`,
-                }}
-                className="pb-4"
-              >
-                {isLoaderRow ? (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {Array.from({ length: COLS }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="skeleton w-full aspect-3/4 rounded-lg"
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {row.map((artwork) => (
-                      <ArtworkCard
-                        key={artwork.id}
-                        artwork={artwork}
-                        onClick={() => setSelected(artwork)}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+      {isError ? (
+        <div className="flex flex-col items-center gap-3 py-16 text-center">
+          <p className="text-base-content/70">
+            We couldn’t load these artworks. Check your connection and try
+            again.
+          </p>
+          <button
+            type="button"
+            className="btn btn-sm btn-primary"
+            onClick={() => refetch()}
+          >
+            Try again
+          </button>
         </div>
-      </div>
+      ) : artworks.length === 0 ? (
+        <ArtworkSkeleton count={20} />
+      ) : (
+        <>
+          {/* CSS-columns masonry: cards flow into 2/3/4 columns by breakpoint and
+              keep their natural (variable) heights for the staggered collage look. */}
+          <div
+            aria-busy={isFetching}
+            className="columns-2 md:columns-3 lg:columns-4 gap-4 *:mb-4"
+          >
+            {artworks.map((artwork) => (
+              <div key={artwork.id} className="break-inside-avoid">
+                <ArtworkCard
+                  artwork={artwork}
+                  onClick={() => setSelectedArtwork(artwork)}
+                />
+              </div>
+            ))}
+          </div>
 
-      {!isFetching && allArtworks.length === 0 && (
-        <p className="text-center text-base-content/50 py-16">
-          No artworks found.
-        </p>
+          {/* DaisyUI numbered pagination */}
+          {totalPages > 1 && (
+            <nav
+              aria-label="Gallery pages"
+              className="flex justify-center pt-2 pb-8"
+            >
+              <div className="join">
+                <button
+                  type="button"
+                  className="join-item btn"
+                  onClick={() => goToPage(page - 1)}
+                  disabled={page === 1 || isFetching}
+                  aria-label="Previous page"
+                >
+                  «
+                </button>
+                {pageRange(page, totalPages).map((p, i) =>
+                  p === "…" ? (
+                    <button
+                      key={`ellipsis-${i}`}
+                      type="button"
+                      className="join-item btn btn-disabled"
+                      aria-hidden="true"
+                      tabIndex={-1}
+                    >
+                      …
+                    </button>
+                  ) : (
+                    <button
+                      key={p}
+                      type="button"
+                      className={`join-item btn ${p === page ? "btn-active" : ""}`}
+                      onClick={() => goToPage(p)}
+                      disabled={isFetching}
+                      aria-current={p === page ? "page" : undefined}
+                      aria-label={`Page ${p}`}
+                    >
+                      {p}
+                    </button>
+                  ),
+                )}
+                <button
+                  type="button"
+                  className="join-item btn"
+                  onClick={() => goToPage(page + 1)}
+                  disabled={page === totalPages || isFetching}
+                  aria-label="Next page"
+                >
+                  »
+                </button>
+              </div>
+            </nav>
+          )}
+        </>
       )}
-
-      {isFetching && allArtworks.length === 0 && <ArtworkSkeleton count={20} />}
-
-      <ArtworkModal artwork={selected} onClose={() => setSelected(null)} />
+      <ArtworkModal
+        artwork={selectedArtwork}
+        onClose={() => setSelectedArtwork(null)}
+      />
     </div>
   );
 }

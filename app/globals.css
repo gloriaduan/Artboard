@@ -1,13 +1,138 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+/* ---------------------------------------------------------------------------
+   Theming — "The Darkroom" in two registers.
+
+   The product is themed, not dark-only. Light is the default; dark applies for
+   users whose OS prefers dark. Both are *designed* — dark mode is not an inverted
+   light mode (depth comes from surface lightness, not shadow) and light mode is
+   not a stock white (its neutrals carry a faint indigo tint toward the accent so
+   the UI feels cohesive with the brand, never a generic warm/cool default).
+
+   In both themes the UI palette stays near-monochrome on purpose: the only
+   saturated color on screen should come from the artwork. The indigo accent is
+   still a placeholder (see DESIGN.md) — it is intentionally identical across both
+   themes so swapping it later is a one-line change per theme.
+--------------------------------------------------------------------------- */
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Surfaces: near-white, faintly tinted toward the indigo accent (chroma 0.004–0.008)
+     for subconscious cohesion — not a warm cream, not a stock gray. Depth steps up
+     through 100 → 200 → 300 via lightness, kept subtle. */
+  --color-base-100: oklch(98.5% 0.004 277);
+  --color-base-200: oklch(96.5% 0.006 277);
+  --color-base-300: oklch(93% 0.008 277);
+  --color-base-content: oklch(27% 0.02 277);
+
+  /* Accent (placeholder indigo). Darkened vs. the dark-mode value so it clears
+     AA as link/label text on the light surface (≈6.3:1). */
+  --color-primary: oklch(50% 0.22 277);
+  --color-primary-content: oklch(98.5% 0.01 277);
+
+  --color-neutral: oklch(27% 0.02 277);
+  --color-neutral-content: oklch(98.5% 0.004 277);
+  --color-error: oklch(58% 0.22 25);
+  --color-error-content: oklch(98% 0.01 25);
+  --color-success: oklch(58% 0.13 160);
+  --color-warning: oklch(70% 0.17 70);
+  --color-info: oklch(58% 0.15 240);
+}
+
 @plugin "daisyui/theme" {
   name: "dark";
   default: false;
   prefersdark: true;
+  color-scheme: dark;
 
-  --color-base-100: #0a0a0a;
-  --color-base-200: #111111;
-  --color-base-300: #1a1a1a;
-  --color-base-content: #e5e5e5;
+  /* The darkroom: near-black surfaces so artwork is the only color in the room.
+     Depth steps up through 100 → 200 → 300 by getting *lighter*, not by shadow. */
+  --color-base-100: oklch(14.5% 0 0);
+  --color-base-200: oklch(17.8% 0 0);
+  --color-base-300: oklch(21.5% 0 0);
+  --color-base-content: oklch(91% 0 0);
+
+  /* Same placeholder indigo, kept brighter for dark-on-light legibility. */
+  --color-primary: oklch(62% 0.21 277);
+  --color-primary-content: oklch(97% 0.018 277);
+
+  --color-neutral: oklch(21.5% 0 0);
+  --color-neutral-content: oklch(91% 0 0);
+  --color-error: oklch(66% 0.2 22);
+  --color-error-content: oklch(97% 0.01 22);
+  --color-success: oklch(70% 0.15 162);
+  --color-warning: oklch(80% 0.17 80);
+  --color-info: oklch(70% 0.15 235);
+}
+
+/* Geist is loaded in app/layout.tsx as CSS variables but was never mapped to a
+   font-family, so the UI fell back to system sans. Bind them here. */
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Background texture — paper/fabric canvas that reinforces the collage feel.
+   Images are skipped on mobile (max-width: 767px) to avoid loading 300–500 KB
+   of texture on narrow, low-bandwidth screens. Plain theme colors substitute.
+
+   fixed attachment: the texture feels like an underlying surface (canvas)
+   rather than wallpaper that scrolls behind content.
+-------------------------------------------------------------------------- */
+body {
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+}
+
+/* The texture URL is held in a CSS variable so Tailwind v4 / Lightning CSS passes
+   it through verbatim. A bare `background-image: url("/bg/…")` in this file gets
+   resolved as a bundler asset and — failing to bundle a path under /public —
+   collapsed to `background-image: none`. Through a variable it stays a literal. */
+:root {
+  --bg-texture: url("/bg/light-paper-bg.jpg");
+  /* Back-to-top button: inverts with the theme. Light mode = dark chip / white
+     icon; dark mode = light chip / dark icon. Driven by variables (not Tailwind
+     data-theme variants) because the theme can come from prefers-color-scheme
+     alone, with no data-theme attribute set on the document. */
+  --to-top-bg: oklch(27% 0.02 277);
+  --to-top-fg: oklch(98.5% 0.004 277);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-texture: url("/bg/dark-paper-bg.jpg");
+    --to-top-bg: oklch(91% 0 0);
+    --to-top-fg: oklch(14.5% 0 0);
+  }
+}
+
+[data-theme="dark"] {
+  --bg-texture: url("/bg/dark-paper-bg.jpg");
+  --to-top-bg: oklch(91% 0 0);
+  --to-top-fg: oklch(14.5% 0 0);
+}
+
+[data-theme="light"] {
+  --bg-texture: url("/bg/light-paper-bg.jpg");
+  --to-top-bg: oklch(27% 0.02 277);
+  --to-top-fg: oklch(98.5% 0.004 277);
+}
+
+/* Desktop and tablet (≥768px) show the paper texture; mobile keeps the flat
+   theme color to avoid loading ~300 KB on narrow, low-bandwidth screens.
+   fixed attachment: the texture reads as an underlying canvas, not wallpaper. */
+@media (min-width: 768px) {
+  body {
+    background-image: var(--bg-texture);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }

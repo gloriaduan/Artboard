@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/dal/session";
 import Navbar from "@/components/Navbar";
 import LandingPage from "@/components/LandingPage";
 import AuthNavbar from "@/components/AuthNavbar";
@@ -8,12 +8,12 @@ import Dashboard from "@/components/Dashboard";
 import ArtworkSkeleton from "@/components/ArtworkSkeleton";
 
 async function AuthenticatedApp() {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const user = await getCurrentUser();
 
-  if (session) {
+  if (user) {
     return (
       <>
-        <AuthNavbar user={session.user} />
+        <AuthNavbar user={user} />
         <Dashboard />
       </>
     );

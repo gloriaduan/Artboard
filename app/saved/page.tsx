@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/dal/session";
 import { listSavedArtworks } from "@/lib/dal/saved-artworks";
+import { listBoards } from "@/lib/dal/boards";
 import AuthNavbar from "@/components/AuthNavbar";
 import SavedGallery from "@/components/SavedGallery";
 import ArtworkSkeleton from "@/components/ArtworkSkeleton";
@@ -13,7 +14,10 @@ async function SavedContent() {
   const user = await getCurrentUser();
   if (!user) redirect("/");
 
-  const saved = await listSavedArtworks();
+  const [saved, boards] = await Promise.all([
+    listSavedArtworks(),
+    listBoards(),
+  ]);
 
   return (
     <>
@@ -21,11 +25,11 @@ async function SavedContent() {
       <main className="w-full max-w-6xl mx-auto px-4 py-8">
         <div className="mb-6">
           <h1 className="text-2xl font-bold">Saved Artworks</h1>
-          <p className="text-base-content/60 text-sm mt-1">
+          <p className="text-base-content/70 text-sm mt-1">
             Artworks you&apos;ve saved to add to your boards
           </p>
         </div>
-        <SavedGallery items={saved} />
+        <SavedGallery items={saved} boards={boards} />
       </main>
     </>
   );

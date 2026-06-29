@@ -18,7 +18,7 @@ export default function Dashboard() {
     <main className="w-full max-w-6xl mx-auto px-4 py-8">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Explore Art</h1>
-        <p className="text-base-content/60 text-sm mt-1">
+        <p className="text-base-content/70 text-sm mt-1">
           Browse the Art Institute of Chicago collection
         </p>
       </div>

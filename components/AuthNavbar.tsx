@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import styles from "./AuthNavbar.module.css";
 
@@ -13,6 +14,7 @@ type User = {
 
 export default function AuthNavbar({ user }: { user: User }) {
   const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   async function handleSignOut() {
     await authClient.signOut();
@@ -29,40 +31,69 @@ export default function AuthNavbar({ user }: { user: User }) {
   return (
     <nav className={styles.navbar}>
       <div className={styles.inner}>
-        <a className={styles.logo}>Museum Collage</a>
-
-        <label className={styles.search}>
-          <svg className={styles.searchIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </g>
-          </svg>
-          <input className={styles.searchInput} type="search" placeholder="Search artworks, artists..." />
-        </label>
-
-        <div className={styles.menuAnchor}>
-          <button tabIndex={0} className={styles.avatarButton}>
+        <Link href="/" className={styles.logo}>
+          Museum Collage
+        </Link>
+        <div
+          className={styles.menuAnchor}
+          onBlur={(e) => {
+            // Close when focus leaves the whole menu subtree.
+            if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+              setMenuOpen(false);
+            }
+          }}
+        >
+          <button
+            type="button"
+            className={styles.avatarButton}
+            aria-label={`Account menu for ${user.name}`}
+            aria-haspopup="menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
             <div className={styles.avatar}>
               {user.image ? (
-                <img className={styles.avatarImg} src={user.image} alt={user.name} />
+                <img className={styles.avatarImg} src={user.image} alt="" />
               ) : (
-                <div className={styles.avatarInitials}>{initials}</div>
+                <div className={styles.avatarInitials} aria-hidden="true">
+                  {initials}
+                </div>
               )}
             </div>
           </button>
-          <ul className={styles.dropdown}>
-            <li>
+          <ul
+            className={styles.dropdown}
+            data-open={menuOpen || undefined}
+            role="menu"
+          >
+            <li role="presentation">
               <span className={styles.dropdownEmail}>{user.email}</span>
             </li>
-            <li>
-              <Link href="/saved" className={styles.dropdownItem}>
+            <li role="presentation">
+              <Link
+                href="/saved"
+                role="menuitem"
+                className={styles.dropdownItem}
+              >
                 Saved Artworks
               </Link>
             </li>
-            <li><a className={styles.dropdownItem}>Settings</a></li>
-            <li>
-              <button onClick={handleSignOut} className={styles.dropdownItemDanger}>
+            <li role="presentation">
+              <Link
+                href="/boards"
+                role="menuitem"
+                className={styles.dropdownItem}
+              >
+                My Boards
+              </Link>
+            </li>
+            <li role="presentation">
+              <button
+                type="button"
+                role="menuitem"
+                onClick={handleSignOut}
+                className={styles.dropdownItemDanger}
+              >
                 Sign out
               </button>
             </li>

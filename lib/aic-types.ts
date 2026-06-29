@@ -1,3 +1,10 @@
+export type AICThumbnail = {
+  width: number;
+  height: number;
+  lqip?: string;
+  alt_text?: string;
+};
+
 export type AICArtwork = {
   id: number;
   title: string;
@@ -7,6 +14,7 @@ export type AICArtwork = {
   medium_display: string;
   is_boosted?: boolean;
   is_on_view?: boolean;
+  thumbnail?: AICThumbnail | null;
 };
 
 export type AICArtworkDetail = AICArtwork & {

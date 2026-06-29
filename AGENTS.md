@@ -69,3 +69,10 @@ Last reviewed: 2026-06-21.
 - `npm run lint` runs ESLint.
 
 Run at least `npm run lint` after code changes when practical. Run `npm run build` for routing, caching, auth, or data-fetching changes, noting that database-backed paths require valid environment configuration.
+
+# Design Context
+
+- `PRODUCT.md` (project root) is the strategic design source of truth: register, users, brand personality, anti-references, and design principles. Read it before design work.
+- Register: **product** (the authenticated browse/save/board app is primary; the landing page serves it).
+- Intended direction: **playful, tactile, collage-y** — hands-on, scrapbook/pinboard feel, with the artwork always the hero. Note the current code is still a quiet dark theme; that direction is something to grow toward, not what's shipped yet. Anti-references: generic SaaS dashboard, sterile institutional museum site, cluttered UI, childish/cartoonish.
+- `DESIGN.md` (when present) is the visual system source of truth (palette, type, components); it wins on visual decisions, PRODUCT.md wins on strategic/voice decisions.
