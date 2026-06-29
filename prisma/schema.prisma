@@ -24,14 +24,16 @@ model User {
 model SavedArtwork {
   id         String           @id @default(cuid())
   userId     String
-  aicId      Int
+  // Provider object id (currently Harvard Art Museums).
+  sourceId   Int
   title      String
-  imageId    String
+  // Provider image base URL (resolver that accepts ?width= sizing).
+  imageBase  String
   createdAt  DateTime         @default(now())
   user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   placements BoardPlacement[]
 
-  @@unique([userId, aicId])
+  @@unique([userId, sourceId])
   @@index([userId])
 }
 

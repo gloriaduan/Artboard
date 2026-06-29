@@ -3,12 +3,11 @@
 // only be touched in the browser (it reaches for `window`/`document`), so this
 // module is imported and instantiated exclusively from a useEffect.
 import { Canvas, FabricImage, Point, type FabricObject } from "fabric";
-import { aicImageUrl } from "@/lib/aic-types";
+import { imageUrl } from "@/lib/museum-types";
 import type { PlacementDTO, LayoutUpdate } from "@/lib/dal/boards";
 
-// AIC IIIF sends CORS headers to browsers, so loading anonymously keeps the
-// canvas untainted (verified against the live CDN). Required for clean
-// rendering and any future export.
+// The museum image host sends CORS headers to browsers, so loading anonymously
+// keeps the canvas untainted. Required for clean rendering and any future export.
 const IMAGE_CROSS_ORIGIN = "anonymous";
 
 // The display width a freshly-added tile gets before the user resizes it. The
@@ -28,7 +27,7 @@ export const ZOOM_STEP = 0.25;
 type BoardObjectData = {
   placementId: string;
   savedId: string;
-  aicId: number;
+  sourceId: number;
   title: string;
 };
 
@@ -70,7 +69,7 @@ function attachData(obj: FabricObject, p: PlacementDTO) {
   Object.assign(obj, {
     placementId: p.id,
     savedId: p.savedId,
-    aicId: p.aicId,
+    sourceId: p.sourceId,
     title: p.title,
   } satisfies BoardObjectData);
 }
@@ -105,7 +104,7 @@ export async function placementToFabric(
 ): Promise<BoardObject | null> {
   let img: FabricImage;
   try {
-    img = await FabricImage.fromURL(aicImageUrl(p.imageId, 400), {
+    img = await FabricImage.fromURL(imageUrl(p.imageBase, 400), {
       crossOrigin: IMAGE_CROSS_ORIGIN,
     });
   } catch {
@@ -135,7 +134,7 @@ export async function addImageObject(
 ): Promise<BoardObject | null> {
   let img: FabricImage;
   try {
-    img = await FabricImage.fromURL(aicImageUrl(p.imageId, 400), {
+    img = await FabricImage.fromURL(imageUrl(p.imageBase, 400), {
       crossOrigin: IMAGE_CROSS_ORIGIN,
     });
   } catch {

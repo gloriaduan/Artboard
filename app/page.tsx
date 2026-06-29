@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { getCurrentUser } from "@/lib/dal/session";
 import Navbar from "@/components/Navbar";
 import LandingPage from "@/components/LandingPage";
-import AuthNavbar from "@/components/AuthNavbar";
+import AuthNavbar, { AuthNavbarSkeleton } from "@/components/AuthNavbar";
 import Dashboard from "@/components/Dashboard";
 import ArtworkSkeleton from "@/components/ArtworkSkeleton";
 
@@ -32,7 +32,7 @@ export default function Home() {
     <Suspense
       fallback={
         <>
-          <Navbar />
+          <AuthNavbarSkeleton />
           <main className="w-full max-w-6xl mx-auto px-4 py-8">
             <ArtworkSkeleton count={20} />
           </main>

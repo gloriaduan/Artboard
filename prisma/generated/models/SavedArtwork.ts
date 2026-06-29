@@ -27,74 +27,74 @@ export type AggregateSavedArtwork = {
 }
 
 export type SavedArtworkAvgAggregateOutputType = {
-  aicId: number | null
+  sourceId: number | null
 }
 
 export type SavedArtworkSumAggregateOutputType = {
-  aicId: number | null
+  sourceId: number | null
 }
 
 export type SavedArtworkMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  aicId: number | null
+  sourceId: number | null
   title: string | null
-  imageId: string | null
+  imageBase: string | null
   createdAt: Date | null
 }
 
 export type SavedArtworkMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  aicId: number | null
+  sourceId: number | null
   title: string | null
-  imageId: string | null
+  imageBase: string | null
   createdAt: Date | null
 }
 
 export type SavedArtworkCountAggregateOutputType = {
   id: number
   userId: number
-  aicId: number
+  sourceId: number
   title: number
-  imageId: number
+  imageBase: number
   createdAt: number
   _all: number
 }
 
 
 export type SavedArtworkAvgAggregateInputType = {
-  aicId?: true
+  sourceId?: true
 }
 
 export type SavedArtworkSumAggregateInputType = {
-  aicId?: true
+  sourceId?: true
 }
 
 export type SavedArtworkMinAggregateInputType = {
   id?: true
   userId?: true
-  aicId?: true
+  sourceId?: true
   title?: true
-  imageId?: true
+  imageBase?: true
   createdAt?: true
 }
 
 export type SavedArtworkMaxAggregateInputType = {
   id?: true
   userId?: true
-  aicId?: true
+  sourceId?: true
   title?: true
-  imageId?: true
+  imageBase?: true
   createdAt?: true
 }
 
 export type SavedArtworkCountAggregateInputType = {
   id?: true
   userId?: true
-  aicId?: true
+  sourceId?: true
   title?: true
-  imageId?: true
+  imageBase?: true
   createdAt?: true
   _all?: true
 }
@@ -188,9 +188,9 @@ export type SavedArtworkGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type SavedArtworkGroupByOutputType = {
   id: string
   userId: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt: Date
   _count: SavedArtworkCountAggregateOutputType | null
   _avg: SavedArtworkAvgAggregateOutputType | null
@@ -220,9 +220,9 @@ export type SavedArtworkWhereInput = {
   NOT?: Prisma.SavedArtworkWhereInput | Prisma.SavedArtworkWhereInput[]
   id?: Prisma.StringFilter<"SavedArtwork"> | string
   userId?: Prisma.StringFilter<"SavedArtwork"> | string
-  aicId?: Prisma.IntFilter<"SavedArtwork"> | number
+  sourceId?: Prisma.IntFilter<"SavedArtwork"> | number
   title?: Prisma.StringFilter<"SavedArtwork"> | string
-  imageId?: Prisma.StringFilter<"SavedArtwork"> | string
+  imageBase?: Prisma.StringFilter<"SavedArtwork"> | string
   createdAt?: Prisma.DateTimeFilter<"SavedArtwork"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   placements?: Prisma.BoardPlacementListRelationFilter
@@ -231,9 +231,9 @@ export type SavedArtworkWhereInput = {
 export type SavedArtworkOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  aicId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  imageId?: Prisma.SortOrder
+  imageBase?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   placements?: Prisma.BoardPlacementOrderByRelationAggregateInput
@@ -241,25 +241,25 @@ export type SavedArtworkOrderByWithRelationInput = {
 
 export type SavedArtworkWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  userId_aicId?: Prisma.SavedArtworkUserIdAicIdCompoundUniqueInput
+  userId_sourceId?: Prisma.SavedArtworkUserIdSourceIdCompoundUniqueInput
   AND?: Prisma.SavedArtworkWhereInput | Prisma.SavedArtworkWhereInput[]
   OR?: Prisma.SavedArtworkWhereInput[]
   NOT?: Prisma.SavedArtworkWhereInput | Prisma.SavedArtworkWhereInput[]
   userId?: Prisma.StringFilter<"SavedArtwork"> | string
-  aicId?: Prisma.IntFilter<"SavedArtwork"> | number
+  sourceId?: Prisma.IntFilter<"SavedArtwork"> | number
   title?: Prisma.StringFilter<"SavedArtwork"> | string
-  imageId?: Prisma.StringFilter<"SavedArtwork"> | string
+  imageBase?: Prisma.StringFilter<"SavedArtwork"> | string
   createdAt?: Prisma.DateTimeFilter<"SavedArtwork"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   placements?: Prisma.BoardPlacementListRelationFilter
-}, "id" | "userId_aicId">
+}, "id" | "userId_sourceId">
 
 export type SavedArtworkOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  aicId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  imageId?: Prisma.SortOrder
+  imageBase?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.SavedArtworkCountOrderByAggregateInput
   _avg?: Prisma.SavedArtworkAvgOrderByAggregateInput
@@ -274,17 +274,17 @@ export type SavedArtworkScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SavedArtworkScalarWhereWithAggregatesInput | Prisma.SavedArtworkScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"SavedArtwork"> | string
   userId?: Prisma.StringWithAggregatesFilter<"SavedArtwork"> | string
-  aicId?: Prisma.IntWithAggregatesFilter<"SavedArtwork"> | number
+  sourceId?: Prisma.IntWithAggregatesFilter<"SavedArtwork"> | number
   title?: Prisma.StringWithAggregatesFilter<"SavedArtwork"> | string
-  imageId?: Prisma.StringWithAggregatesFilter<"SavedArtwork"> | string
+  imageBase?: Prisma.StringWithAggregatesFilter<"SavedArtwork"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SavedArtwork"> | Date | string
 }
 
 export type SavedArtworkCreateInput = {
   id?: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSavedArtworksInput
   placements?: Prisma.BoardPlacementCreateNestedManyWithoutSavedInput
@@ -293,18 +293,18 @@ export type SavedArtworkCreateInput = {
 export type SavedArtworkUncheckedCreateInput = {
   id?: string
   userId: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
   placements?: Prisma.BoardPlacementUncheckedCreateNestedManyWithoutSavedInput
 }
 
 export type SavedArtworkUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSavedArtworksNestedInput
   placements?: Prisma.BoardPlacementUpdateManyWithoutSavedNestedInput
@@ -313,9 +313,9 @@ export type SavedArtworkUpdateInput = {
 export type SavedArtworkUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   placements?: Prisma.BoardPlacementUncheckedUpdateManyWithoutSavedNestedInput
 }
@@ -323,26 +323,26 @@ export type SavedArtworkUncheckedUpdateInput = {
 export type SavedArtworkCreateManyInput = {
   id?: string
   userId: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
 }
 
 export type SavedArtworkUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SavedArtworkUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -356,44 +356,44 @@ export type SavedArtworkOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type SavedArtworkUserIdAicIdCompoundUniqueInput = {
+export type SavedArtworkUserIdSourceIdCompoundUniqueInput = {
   userId: string
-  aicId: number
+  sourceId: number
 }
 
 export type SavedArtworkCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  aicId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  imageId?: Prisma.SortOrder
+  imageBase?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type SavedArtworkAvgOrderByAggregateInput = {
-  aicId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
 }
 
 export type SavedArtworkMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  aicId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  imageId?: Prisma.SortOrder
+  imageBase?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type SavedArtworkMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  aicId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  imageId?: Prisma.SortOrder
+  imageBase?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type SavedArtworkSumOrderByAggregateInput = {
-  aicId?: Prisma.SortOrder
+  sourceId?: Prisma.SortOrder
 }
 
 export type SavedArtworkScalarRelationFilter = {
@@ -467,18 +467,18 @@ export type SavedArtworkUpdateOneRequiredWithoutPlacementsNestedInput = {
 
 export type SavedArtworkCreateWithoutUserInput = {
   id?: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
   placements?: Prisma.BoardPlacementCreateNestedManyWithoutSavedInput
 }
 
 export type SavedArtworkUncheckedCreateWithoutUserInput = {
   id?: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
   placements?: Prisma.BoardPlacementUncheckedCreateNestedManyWithoutSavedInput
 }
@@ -515,17 +515,17 @@ export type SavedArtworkScalarWhereInput = {
   NOT?: Prisma.SavedArtworkScalarWhereInput | Prisma.SavedArtworkScalarWhereInput[]
   id?: Prisma.StringFilter<"SavedArtwork"> | string
   userId?: Prisma.StringFilter<"SavedArtwork"> | string
-  aicId?: Prisma.IntFilter<"SavedArtwork"> | number
+  sourceId?: Prisma.IntFilter<"SavedArtwork"> | number
   title?: Prisma.StringFilter<"SavedArtwork"> | string
-  imageId?: Prisma.StringFilter<"SavedArtwork"> | string
+  imageBase?: Prisma.StringFilter<"SavedArtwork"> | string
   createdAt?: Prisma.DateTimeFilter<"SavedArtwork"> | Date | string
 }
 
 export type SavedArtworkCreateWithoutPlacementsInput = {
   id?: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSavedArtworksInput
 }
@@ -533,9 +533,9 @@ export type SavedArtworkCreateWithoutPlacementsInput = {
 export type SavedArtworkUncheckedCreateWithoutPlacementsInput = {
   id?: string
   userId: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
 }
 
@@ -557,9 +557,9 @@ export type SavedArtworkUpdateToOneWithWhereWithoutPlacementsInput = {
 
 export type SavedArtworkUpdateWithoutPlacementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSavedArtworksNestedInput
 }
@@ -567,43 +567,43 @@ export type SavedArtworkUpdateWithoutPlacementsInput = {
 export type SavedArtworkUncheckedUpdateWithoutPlacementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SavedArtworkCreateManyUserInput = {
   id?: string
-  aicId: number
+  sourceId: number
   title: string
-  imageId: string
+  imageBase: string
   createdAt?: Date | string
 }
 
 export type SavedArtworkUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   placements?: Prisma.BoardPlacementUpdateManyWithoutSavedNestedInput
 }
 
 export type SavedArtworkUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   placements?: Prisma.BoardPlacementUncheckedUpdateManyWithoutSavedNestedInput
 }
 
 export type SavedArtworkUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  aicId?: Prisma.IntFieldUpdateOperationsInput | number
+  sourceId?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  imageId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageBase?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -641,9 +641,9 @@ export type SavedArtworkCountOutputTypeCountPlacementsArgs<ExtArgs extends runti
 export type SavedArtworkSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  aicId?: boolean
+  sourceId?: boolean
   title?: boolean
-  imageId?: boolean
+  imageBase?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   placements?: boolean | Prisma.SavedArtwork$placementsArgs<ExtArgs>
@@ -653,9 +653,9 @@ export type SavedArtworkSelect<ExtArgs extends runtime.Types.Extensions.Internal
 export type SavedArtworkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  aicId?: boolean
+  sourceId?: boolean
   title?: boolean
-  imageId?: boolean
+  imageBase?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["savedArtwork"]>
@@ -663,9 +663,9 @@ export type SavedArtworkSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 export type SavedArtworkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  aicId?: boolean
+  sourceId?: boolean
   title?: boolean
-  imageId?: boolean
+  imageBase?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["savedArtwork"]>
@@ -673,13 +673,13 @@ export type SavedArtworkSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type SavedArtworkSelectScalar = {
   id?: boolean
   userId?: boolean
-  aicId?: boolean
+  sourceId?: boolean
   title?: boolean
-  imageId?: boolean
+  imageBase?: boolean
   createdAt?: boolean
 }
 
-export type SavedArtworkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "aicId" | "title" | "imageId" | "createdAt", ExtArgs["result"]["savedArtwork"]>
+export type SavedArtworkOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "sourceId" | "title" | "imageBase" | "createdAt", ExtArgs["result"]["savedArtwork"]>
 export type SavedArtworkInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   placements?: boolean | Prisma.SavedArtwork$placementsArgs<ExtArgs>
@@ -701,9 +701,9 @@ export type $SavedArtworkPayload<ExtArgs extends runtime.Types.Extensions.Intern
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    aicId: number
+    sourceId: number
     title: string
-    imageId: string
+    imageBase: string
     createdAt: Date
   }, ExtArgs["result"]["savedArtwork"]>
   composites: {}
@@ -1132,9 +1132,9 @@ export interface Prisma__SavedArtworkClient<T, Null = never, ExtArgs extends run
 export interface SavedArtworkFieldRefs {
   readonly id: Prisma.FieldRef<"SavedArtwork", 'String'>
   readonly userId: Prisma.FieldRef<"SavedArtwork", 'String'>
-  readonly aicId: Prisma.FieldRef<"SavedArtwork", 'Int'>
+  readonly sourceId: Prisma.FieldRef<"SavedArtwork", 'Int'>
   readonly title: Prisma.FieldRef<"SavedArtwork", 'String'>
-  readonly imageId: Prisma.FieldRef<"SavedArtwork", 'String'>
+  readonly imageBase: Prisma.FieldRef<"SavedArtwork", 'String'>
   readonly createdAt: Prisma.FieldRef<"SavedArtwork", 'DateTime'>
 }
     

@@ -1,4 +1,4 @@
-import { fetchArtwork } from "@/lib/aic";
+import { fetchArtwork } from "@/lib/museum";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(

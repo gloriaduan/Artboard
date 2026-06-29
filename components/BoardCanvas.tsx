@@ -30,7 +30,7 @@ type Props = {
   savedArtworks: SavedArtworkDTO[];
 };
 
-type TileRef = { id: string; aicId: number; title: string };
+type TileRef = { id: string; sourceId: number; title: string };
 
 export default function BoardCanvas({
   boardId,
@@ -52,13 +52,13 @@ export default function BoardCanvas({
   const [tiles, setTiles] = useState<TileRef[]>(() =>
     initialPlacements.map((p) => ({
       id: p.id,
-      aicId: p.aicId,
+      sourceId: p.sourceId,
       title: p.title,
     })),
   );
 
-  // aicIds already on the board, so the picker can mark them "On board".
-  const placedAicIds = new Set(tiles.map((t) => t.aicId));
+  // source ids already on the board, so the picker can mark them "On board".
+  const placedSourceIds = new Set(tiles.map((t) => t.sourceId));
 
   // Mount the Fabric canvas, load the initial placements, and wire events.
   const { canvasElRef, containerRef, fabricRef } = useBoardCanvas({
@@ -78,7 +78,7 @@ export default function BoardCanvas({
             ...prev,
             {
               id: placement.id,
-              aicId: placement.aicId,
+              sourceId: placement.sourceId,
               title: placement.title,
             },
           ],
@@ -312,7 +312,7 @@ export default function BoardCanvas({
         open={pickerOpen}
         boardId={boardId}
         savedArtworks={savedArtworks}
-        placedAicIds={placedAicIds}
+        placedSourceIds={placedSourceIds}
         onAdded={handleAdded}
         onClose={() => setPickerOpen(false)}
       />

@@ -12,6 +12,23 @@ type User = {
   image?: string | null;
 };
 
+export function AuthNavbarSkeleton() {
+  return (
+    <nav className={styles.navbar}>
+      <div className={styles.inner}>
+        <span className={styles.logo}>Museum Collage</span>
+        <div className={styles.menuAnchor}>
+          <div
+            className={styles.avatar}
+            style={{ backgroundColor: "var(--color-base-200)" }}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+    </nav>
+  );
+}
+
 export default function AuthNavbar({ user }: { user: User }) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);

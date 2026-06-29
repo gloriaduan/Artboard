@@ -8,17 +8,17 @@ import { requireUser } from "./session";
 // raw row (no userId/createdAt leaked to the client).
 export type SavedArtworkDTO = {
   id: string;
-  aicId: number;
+  sourceId: number;
   title: string;
-  imageId: string;
+  imageBase: string;
 };
 
 function toDTO(row: SavedArtwork): SavedArtworkDTO {
   return {
     id: row.id,
-    aicId: row.aicId,
+    sourceId: row.sourceId,
     title: row.title,
-    imageId: row.imageId,
+    imageBase: row.imageBase,
   };
 }
 
@@ -44,31 +44,31 @@ export async function listSavedArtworks(): Promise<SavedArtworkDTO[]> {
   return getSavedArtworks(user.id);
 }
 
-export async function isArtworkSaved(aicId: number): Promise<boolean> {
+export async function isArtworkSaved(sourceId: number): Promise<boolean> {
   const user = await requireUser();
   const count = await db.savedArtwork.count({
-    where: { userId: user.id, aicId },
+    where: { userId: user.id, sourceId },
   });
   return count > 0;
 }
 
-type SaveInput = { aicId: number; title: string; imageId: string };
+type SaveInput = { sourceId: number; title: string; imageBase: string };
 
 function validateSaveInput(input: SaveInput): SaveInput {
-  const aicId = Number(input.aicId);
-  if (!Number.isInteger(aicId) || aicId <= 0) {
+  const sourceId = Number(input.sourceId);
+  if (!Number.isInteger(sourceId) || sourceId <= 0) {
     throw new Error("Invalid artwork id");
   }
   const title = String(input.title ?? "").trim();
-  const imageId = String(input.imageId ?? "").trim();
-  if (!title || !imageId) {
+  const imageBase = String(input.imageBase ?? "").trim();
+  if (!title || !imageBase) {
     throw new Error("Missing artwork title or image");
   }
-  return { aicId, title, imageId };
+  return { sourceId, title, imageBase };
 }
 
-// Idempotent via the @@unique([userId, aicId]) constraint. Returns userId so the
-// calling action can invalidate the per-user cache tag.
+// Idempotent via the @@unique([userId, sourceId]) constraint. Returns userId so
+// the calling action can invalidate the per-user cache tag.
 //
 // Note: the Neon HTTP adapter does not support transactions, so we avoid
 // `upsert` (which Prisma runs in a transaction). Instead we try to create and
@@ -77,11 +77,11 @@ export async function saveArtwork(
   input: SaveInput,
 ): Promise<{ userId: string; saved: SavedArtworkDTO }> {
   const user = await requireUser();
-  const { aicId, title, imageId } = validateSaveInput(input);
+  const { sourceId, title, imageBase } = validateSaveInput(input);
 
   try {
     const row = await db.savedArtwork.create({
-      data: { userId: user.id, aicId, title, imageId },
+      data: { userId: user.id, sourceId, title, imageBase },
     });
     return { userId: user.id, saved: toDTO(row) };
   } catch (err) {
@@ -90,7 +90,7 @@ export async function saveArtwork(
       err.code === "P2002"
     ) {
       const row = await db.savedArtwork.findUniqueOrThrow({
-        where: { userId_aicId: { userId: user.id, aicId } },
+        where: { userId_sourceId: { userId: user.id, sourceId } },
       });
       return { userId: user.id, saved: toDTO(row) };
     }
@@ -99,10 +99,10 @@ export async function saveArtwork(
 }
 
 export async function removeSavedArtwork(
-  aicId: number,
+  sourceId: number,
 ): Promise<{ userId: string }> {
   const user = await requireUser();
   // Scoped by userId so a user can only ever delete their own rows.
-  await db.savedArtwork.deleteMany({ where: { userId: user.id, aicId } });
+  await db.savedArtwork.deleteMany({ where: { userId: user.id, sourceId } });
   return { userId: user.id };
 }

@@ -2,22 +2,22 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
-import type { AICArtwork } from "@/lib/aic-types";
+import type { Artwork } from "@/lib/museum-types";
 import type { SavedArtworkDTO } from "@/lib/dal/saved-artworks";
 import type { PlacementDTO } from "@/lib/dal/boards";
 import { addPlacementAction } from "@/app/actions/boards";
 import ArtworkCard from "./ArtworkCard";
 
-// Map a saved row to the AICArtwork shape ArtworkCard expects. Artist/date
+// Map a saved row to the Artwork shape ArtworkCard expects. Artist/date
 // aren't stored; ArtworkCard already guards their absence.
-function toAICArtwork(item: SavedArtworkDTO): AICArtwork {
+function toArtwork(item: SavedArtworkDTO): Artwork {
   return {
-    id: item.aicId,
+    id: item.sourceId,
     title: item.title,
-    image_id: item.imageId,
-    artist_display: "",
-    date_display: "",
-    medium_display: "",
+    imageBase: item.imageBase,
+    artist: "",
+    date: "",
+    medium: "",
   };
 }
 
@@ -25,8 +25,8 @@ type Props = {
   open: boolean;
   boardId: string;
   savedArtworks: SavedArtworkDTO[];
-  // aicIds already placed on the board, so we can mark them "On board".
-  placedAicIds: Set<number>;
+  // source ids already placed on the board, so we can mark them "On board".
+  placedSourceIds: Set<number>;
   onAdded: (placement: PlacementDTO) => void;
   onClose: () => void;
 };
@@ -35,7 +35,7 @@ export default function BoardAddImagesModal({
   open,
   boardId,
   savedArtworks,
-  placedAicIds,
+  placedSourceIds,
   onAdded,
   onClose,
 }: Props) {
@@ -87,7 +87,7 @@ export default function BoardAddImagesModal({
                 key={item.id}
                 item={item}
                 boardId={boardId}
-                alreadyOnBoard={placedAicIds.has(item.aicId)}
+                alreadyOnBoard={placedSourceIds.has(item.sourceId)}
                 onAdded={onAdded}
               />
             ))}
@@ -117,7 +117,7 @@ function PickerCard({
   // Locally-added this session, so the button reflects the add without needing
   // the parent's placed-set to update.
   const [justAdded, setJustAdded] = useState(false);
-  const artwork = toAICArtwork(item);
+  const artwork = toArtwork(item);
   const onBoard = alreadyOnBoard || justAdded;
 
   function handleAdd() {

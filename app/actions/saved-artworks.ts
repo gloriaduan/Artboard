@@ -12,17 +12,17 @@ import {
 // (read-your-own-writes) expires the tag immediately so the user sees their
 // change on the next visit to the saved page.
 export async function saveArtworkAction(input: {
-  aicId: number;
+  sourceId: number;
   title: string;
-  imageId: string;
+  imageBase: string;
 }) {
   const { userId } = await saveArtwork(input);
   updateTag(savedArtworksTag(userId));
   return { success: true };
 }
 
-export async function removeSavedArtworkAction(aicId: number) {
-  const { userId } = await removeSavedArtwork(aicId);
+export async function removeSavedArtworkAction(sourceId: number) {
+  const { userId } = await removeSavedArtwork(sourceId);
   updateTag(savedArtworksTag(userId));
   return { success: true };
 }

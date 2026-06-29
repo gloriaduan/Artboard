@@ -22,8 +22,8 @@ export type PlacementDTO = {
   z: number;
   // Joined from the saved artwork so the canvas can render the image directly.
   title: string;
-  imageId: string;
-  aicId: number;
+  imageBase: string;
+  sourceId: number;
 };
 
 export type BoardDetailDTO = BoardDTO & { placements: PlacementDTO[] };
@@ -130,7 +130,7 @@ function placementToDTO(
     height: number;
     z: number;
   },
-  saved: { title: string; imageId: string; aicId: number },
+  saved: { title: string; imageBase: string; sourceId: number },
 ): PlacementDTO {
   return {
     id: p.id,
@@ -141,8 +141,8 @@ function placementToDTO(
     height: p.height,
     z: p.z,
     title: saved.title,
-    imageId: saved.imageId,
-    aicId: saved.aicId,
+    imageBase: saved.imageBase,
+    sourceId: saved.sourceId,
   };
 }
 

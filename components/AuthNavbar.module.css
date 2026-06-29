@@ -83,6 +83,8 @@
 
 .menuAnchor {
   position: relative;
+  grid-column: 3;
+  justify-self: end;
 }
 
 .dropdown {

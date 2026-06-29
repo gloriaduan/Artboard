@@ -2,24 +2,24 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import type { AICArtwork } from "@/lib/aic-types";
+import type { Artwork } from "@/lib/museum-types";
 import type { SavedArtworkDTO } from "@/lib/dal/saved-artworks";
 import type { BoardDTO } from "@/lib/dal/boards";
 import { addPlacementAction } from "@/app/actions/boards";
 import ArtworkCard from "./ArtworkCard";
 import ArtworkModal from "./ArtworkModal";
 
-// Map a saved row to the AICArtwork shape ArtworkCard/ArtworkModal expect.
+// Map a saved row to the Artwork shape ArtworkCard/ArtworkModal expect.
 // Artist/date aren't stored; ArtworkCard already guards their absence, and the
 // modal re-fetches full detail by id on open.
-function toAICArtwork(item: SavedArtworkDTO): AICArtwork {
+function toArtwork(item: SavedArtworkDTO): Artwork {
   return {
-    id: item.aicId,
+    id: item.sourceId,
     title: item.title,
-    image_id: item.imageId,
-    artist_display: "",
-    date_display: "",
-    medium_display: "",
+    imageBase: item.imageBase,
+    artist: "",
+    date: "",
+    medium: "",
   };
 }
 
@@ -30,7 +30,7 @@ export default function SavedGallery({
   items: SavedArtworkDTO[];
   boards: BoardDTO[];
 }) {
-  const [selected, setSelected] = useState<AICArtwork | null>(null);
+  const [selected, setSelected] = useState<Artwork | null>(null);
   const [targetBoard, setTargetBoard] = useState(boards[0]?.id ?? "");
   // savedId currently being added, so we can disable just that card's button.
   const [addingId, setAddingId] = useState<string | null>(null);
@@ -92,7 +92,7 @@ export default function SavedGallery({
 
       <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 list-none p-0 m-0">
         {items.map((item) => {
-          const artwork = toAICArtwork(item);
+          const artwork = toArtwork(item);
           const isAdded = added.has(item.id);
           return (
             <li key={item.id} className="flex flex-col gap-2">

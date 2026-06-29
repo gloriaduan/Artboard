@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { AICArtwork, AICResponse } from "@/lib/aic-types";
+import { Artwork, ArtworkResponse } from "@/lib/museum-types";
 import ArtworkCard from "./ArtworkCard";
 import ArtworkSkeleton from "./ArtworkSkeleton";
 import ArtworkModal from "./ArtworkModal";
@@ -10,22 +10,20 @@ import styles from "./ArtworkGallery.module.css";
 import pageRange from "@/lib/utils/artwork-gallery/helpers";
 
 type Props = {
-  initialData: AICArtwork[];
+  initialData: Artwork[];
   totalPages: number;
 };
 
-async function fetchArtworks(page: number): Promise<AICArtwork[]> {
+async function fetchArtworks(page: number): Promise<Artwork[]> {
   const res = await fetch(`/api/artworks?limit=20&page=${page}`);
   if (!res.ok) throw new Error("Failed to load artworks");
-  const data: AICResponse = await res.json();
+  const data: ArtworkResponse = await res.json();
   return data.data;
 }
 
 export default function ArtworkGallery({ initialData, totalPages }: Props) {
   const [page, setPage] = useState(1);
-  const [selectedArtwork, setSelectedArtwork] = useState<AICArtwork | null>(
-    null,
-  );
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
   const { data, isError, isFetching, refetch } = useQuery({
     queryKey: ["artworks", page],

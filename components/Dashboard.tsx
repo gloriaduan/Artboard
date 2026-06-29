@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { fetchArtworks } from "@/lib/aic";
+import { fetchArtworks } from "@/lib/museum";
 import ArtworkGallery from "./ArtworkGallery";
 import ArtworkSkeleton from "./ArtworkSkeleton";
 
@@ -19,7 +19,7 @@ export default function Dashboard() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Explore Art</h1>
         <p className="text-base-content/70 text-sm mt-1">
-          Browse the Art Institute of Chicago collection
+          Browse the Harvard Art Museums collection
         </p>
       </div>
 

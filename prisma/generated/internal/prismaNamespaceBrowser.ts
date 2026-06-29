@@ -92,9 +92,9 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const SavedArtworkScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  aicId: 'aicId',
+  sourceId: 'sourceId',
   title: 'title',
-  imageId: 'imageId',
+  imageBase: 'imageBase',
   createdAt: 'createdAt'
 } as const
 

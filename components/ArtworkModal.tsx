@@ -1,19 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
-import {
-  AICArtwork,
-  AICArtworkDetail,
-  AICArtworkResponse,
-  aicImageUrl,
-} from "@/lib/aic-types";
+import { Artwork, ArtworkDetail, imageUrl } from "@/lib/museum-types";
 import {
   saveArtworkAction,
   removeSavedArtworkAction,
 } from "@/app/actions/saved-artworks";
 
 type Props = {
-  artwork: AICArtwork | null;
+  artwork: Artwork | null;
   onClose: () => void;
   initialSaved?: boolean;
 };
@@ -68,15 +63,15 @@ function ArtworkContent({
   artwork,
   initialSaved,
 }: {
-  artwork: AICArtwork;
+  artwork: Artwork;
   initialSaved: boolean;
 }) {
-  const [detail, setDetail] = useState<AICArtworkDetail | null>(null);
+  const [detail, setDetail] = useState<ArtworkDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [saved, setSaved] = useState(initialSaved);
   const [isPending, startTransition] = useTransition();
 
-  const canSave = artwork.image_id !== null;
+  const canSave = artwork.imageBase !== null;
 
   function toggleSave() {
     startTransition(async () => {
@@ -84,11 +79,11 @@ function ArtworkContent({
         await removeSavedArtworkAction(artwork.id);
         setSaved(false);
       } else {
-        if (!artwork.image_id) return;
+        if (!artwork.imageBase) return;
         await saveArtworkAction({
-          aicId: artwork.id,
+          sourceId: artwork.id,
           title: artwork.title,
-          imageId: artwork.image_id,
+          imageBase: artwork.imageBase,
         });
         setSaved(true);
       }
@@ -98,7 +93,7 @@ function ArtworkContent({
   useEffect(() => {
     let cancelled = false;
     fetch(`/api/artworks/${artwork.id}`)
-      .then((res) => res.json() as Promise<AICArtworkResponse>)
+      .then((res) => res.json() as Promise<{ data: ArtworkDetail }>)
       .then((json) => {
         if (!cancelled) setDetail(json.data);
       })
@@ -116,9 +111,9 @@ function ArtworkContent({
     // the dialog stays landscape; each column scrolls independently for tall art.
     <div className="flex flex-col md:flex-row max-h-[85vh]">
       <div className="md:w-1/2 bg-base-200 flex items-center justify-center overflow-auto p-4">
-        {artwork.image_id ? (
+        {artwork.imageBase ? (
           <img
-            src={aicImageUrl(artwork.image_id, 843)}
+            src={imageUrl(artwork.imageBase, 843)}
             alt={artwork.title}
             className="max-w-full w-auto h-auto object-contain rounded"
           />
@@ -136,15 +131,13 @@ function ArtworkContent({
           <h3 id="artwork-modal-title" className="font-bold text-xl pr-8">
             {artwork.title}
           </h3>
-          {artwork.artist_display && (
+          {artwork.artist && (
             <p className="text-sm text-base-content/70 whitespace-pre-line">
-              {artwork.artist_display}
+              {artwork.artist}
             </p>
           )}
-          {artwork.date_display && (
-            <p className="text-sm text-base-content/50">
-              {artwork.date_display}
-            </p>
+          {artwork.date && (
+            <p className="text-sm text-base-content/50">{artwork.date}</p>
           )}
         </div>
 
@@ -157,23 +150,20 @@ function ArtworkContent({
         ) : detail ? (
           <div className="flex flex-col gap-3 text-sm">
             {detail.description ? (
-              <div
-                className="prose prose-sm max-w-none text-base-content/80"
-                dangerouslySetInnerHTML={{ __html: detail.description }}
-              />
+              <p className="text-base-content/80 whitespace-pre-line">
+                {detail.description}
+              </p>
             ) : (
               <p className="text-base-content/80">
-                {[detail.medium_display, detail.date_display]
-                  .filter(Boolean)
-                  .join(" · ")}
+                {[detail.medium, detail.date].filter(Boolean).join(" · ")}
               </p>
             )}
 
             <dl className="text-base-content/60">
-              {detail.medium_display && (
+              {detail.medium && (
                 <div className="flex gap-2">
                   <dt className="font-medium">Medium:</dt>
-                  <dd>{detail.medium_display}</dd>
+                  <dd>{detail.medium}</dd>
                 </div>
               )}
               {detail.dimensions && (
@@ -182,16 +172,16 @@ function ArtworkContent({
                   <dd>{detail.dimensions}</dd>
                 </div>
               )}
-              {detail.place_of_origin && (
+              {detail.culture && (
                 <div className="flex gap-2">
-                  <dt className="font-medium">Origin:</dt>
-                  <dd>{detail.place_of_origin}</dd>
+                  <dt className="font-medium">Culture:</dt>
+                  <dd>{detail.culture}</dd>
                 </div>
               )}
-              {detail.credit_line && (
+              {detail.creditLine && (
                 <div className="flex gap-2">
                   <dt className="font-medium">Credit:</dt>
-                  <dd>{detail.credit_line}</dd>
+                  <dd>{detail.creditLine}</dd>
                 </div>
               )}
             </dl>
