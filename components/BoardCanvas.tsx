@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { ArrowLeft, Minus, Plus } from "lucide-react";
 import type { PlacementDTO } from "@/lib/dal/boards";
 import type { SavedArtworkDTO } from "@/lib/dal/saved-artworks";
 import {
@@ -206,7 +207,7 @@ export default function BoardCanvas({
             className="btn btn-sm btn-ghost"
             aria-label="Back to all boards"
           >
-            ←
+            <ArrowLeft className="size-4" />
           </button>
           <h1 className="text-lg font-bold truncate">{boardName}</h1>
         </div>
@@ -216,7 +217,8 @@ export default function BoardCanvas({
             onClick={() => setPickerOpen(true)}
             className="btn btn-sm btn-primary btn-outline"
           >
-            + Add images
+            <Plus className="size-4" />
+            Add images
           </button>
           {selectedId && (
             <button
@@ -235,7 +237,7 @@ export default function BoardCanvas({
               aria-label="Zoom out"
               className="btn btn-sm btn-ghost btn-square"
             >
-              −
+              <Minus className="size-4" />
             </button>
             <span className="text-sm tabular-nums w-12 text-center text-base-content/70">
               {Math.round(zoom * 100)}%
@@ -247,7 +249,7 @@ export default function BoardCanvas({
               aria-label="Zoom in"
               className="btn btn-sm btn-ghost btn-square"
             >
-              +
+              <Plus className="size-4" />
             </button>
           </div>
 

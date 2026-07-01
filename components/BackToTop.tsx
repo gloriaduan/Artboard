@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ChevronUp } from "lucide-react";
 
 // Site-wide "back to top" affordance. The page (window) owns the scroll across
 // every route, so this listens to window scroll and appears once the user is a
@@ -18,7 +19,7 @@ export default function BackToTop() {
 
   const scrollToTop = () => {
     const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
     window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
   };
@@ -28,25 +29,13 @@ export default function BackToTop() {
       type="button"
       onClick={scrollToTop}
       aria-label="Back to top"
-      className={`fixed bottom-6 right-6 z-40 flex size-12 items-center justify-center rounded-full shadow-lg transition-all duration-200 ease-out bg-[var(--to-top-bg)] text-[var(--to-top-fg)] ${
+      className={`fixed bottom-6 right-6 z-40 flex size-12 items-center justify-center rounded-full shadow-lg transition-all duration-200 ease-out bg-(--to-top-bg) text-(--to-top-fg) ${
         visible
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 translate-y-2 pointer-events-none"
       }`}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="size-6"
-        aria-hidden="true"
-      >
-        <path d="m18 15-6-6-6 6" />
-      </svg>
+      <ChevronUp className="size-6" aria-hidden="true" />
     </button>
   );
 }

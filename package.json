@@ -17,6 +17,7 @@
     "better-auth": "^1.6.13",
     "daisyui": "^5.5.20",
     "fabric": "^6.9.1",
+    "lucide-react": "^1.22.0",
     "motion": "^12.40.0",
     "next": "16.2.6",
     "prisma": "^7.8.0",

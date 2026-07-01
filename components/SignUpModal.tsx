@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 export function openSignUpModal() {
@@ -41,8 +42,11 @@ export default function SignUpModal() {
     <dialog id="signup_modal" className="modal">
       <div className="modal-box">
         <form method="dialog">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-            ✕
+          <button
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            aria-label="Close"
+          >
+            <X className="size-4" />
           </button>
         </form>
 

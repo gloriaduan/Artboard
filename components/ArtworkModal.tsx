@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import {
+  useEffect,
+  useOptimistic,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
+import { Check, X } from "lucide-react";
 import { Artwork, ArtworkDetail, imageUrl } from "@/lib/museum-types";
 import {
   saveArtworkAction,
@@ -37,8 +44,11 @@ export default function ArtworkModal({
     >
       <div className="modal-box w-11/12 max-w-5xl max-h-[85vh] p-0 overflow-hidden">
         <form method="dialog">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10">
-            ✕
+          <button
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-10"
+            aria-label="Close"
+          >
+            <X className="size-4" />
           </button>
         </form>
 
@@ -69,17 +79,20 @@ function ArtworkContent({
   const [detail, setDetail] = useState<ArtworkDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [saved, setSaved] = useState(initialSaved);
+  const [optimisticSaved, setOptimisticSaved] = useOptimistic(saved);
   const [isPending, startTransition] = useTransition();
 
   const canSave = artwork.imageBase !== null;
 
   function toggleSave() {
     startTransition(async () => {
-      if (saved) {
+      if (optimisticSaved) {
+        setOptimisticSaved(false);
         await removeSavedArtworkAction(artwork.id);
         setSaved(false);
       } else {
         if (!artwork.imageBase) return;
+        setOptimisticSaved(true);
         await saveArtworkAction({
           sourceId: artwork.id,
           title: artwork.title,
@@ -193,12 +206,19 @@ function ArtworkContent({
             type="button"
             onClick={toggleSave}
             disabled={isPending || !canSave}
-            className={`btn ${saved ? "btn-outline" : "btn-primary"}`}
+            className={`btn ${optimisticSaved ? "btn-outline" : "btn-primary"}`}
           >
             {isPending && (
               <span className="loading loading-spinner loading-xs" />
             )}
-            {saved ? "Saved ✓" : "Save artwork"}
+            {optimisticSaved ? (
+              <span className="inline-flex items-center gap-1">
+                Saved
+                <Check className="size-4" />
+              </span>
+            ) : (
+              "Save artwork"
+            )}
           </button>
         </div>
       </div>

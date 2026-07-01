@@ -41,8 +41,13 @@ Last reviewed: 2026-06-21.
 - `/` renders a Suspense-wrapped server session check. Authenticated users see `AuthNavbar` plus `Dashboard`; anonymous users see `Navbar` plus `LandingPage`.
 - `/api/artworks` accepts `page`, `limit`, and optional `q`. Without `q`, it fetches the most-viewed Harvard paintings (`sort=totalpageviews`). With `q`, it performs a Harvard keyword search. Default feed is `classification=Paintings`, `hasimage=1`.
 - `/api/auth/[...all]` is owned by Better Auth through `toNextJsHandler(auth)`.
-- `ArtworkGallery` is a client component using paginated `@tanstack/react-query` (one page per click) with a CSS-columns masonry layout and DaisyUI numbered pagination. Not infinite scroll/virtualization — that was removed because bursty image loads tripped CDN rate limits.
+- `ArtworkGallery` is a client component using paginated `@tanstack/react-query` (one page per click) with a CSS-columns masonry layout and DaisyUI numbered pagination. Deliberately not infinite scroll/virtualization — pagination caps each interaction at one API call plus ~20 image loads, keeping traffic predictable (see "Data source and rate limits" below).
 - `ArtworkCard` intentionally uses a plain `<img>` hotlinking the museum image host (Harvard's `nrs.harvard.edu` resolver, which honors a `?width=` size param). Do not switch it to `next/image`; a server-side proxy can hit CDN bot-challenges (this is why AIC was abandoned).
+
+### Data source and rate limits
+
+- Harvard's API documents a courtesy limit of **2,500 API calls/day per key**. This applies only to the JSON `/object` calls in `lib/museum.ts` (not image loads). Those calls are wrapped in `"use cache"` / `cacheLife("hours")`, so repeat views are cache-served and real volume stays well under the limit. The image hosts (`nrs.harvard.edu` / `ids.lib.harvard.edu`) have no documented rate limit or challenge — the AIC failure mode does not apply here.
+- Pagination (vs. infinite scroll) is a deliberate choice to keep both API and image traffic bounded, not a workaround for a fragile API. **Infinite scroll is safe to add later**, but do it consciously with these guardrails so the old runaway-fetch bug doesn't return: (1) add windowing/virtualization (CSS columns can't virtualize — use a masonry windower like `@virtuoso.dev/masonry`) so accumulated DOM/images stay bounded; (2) trigger fetches via an IntersectionObserver sentinel gated on `hasNextPage`/`isFetching` (never an effect that re-runs on every virtual-item change); (3) keep the `totalPages` bound so it stops at the end. Keep `loading="lazy"` on images regardless.
 
 ## Implementation Rules
 

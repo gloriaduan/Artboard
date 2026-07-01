@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
+import { Check, X } from "lucide-react";
 import type { Artwork } from "@/lib/museum-types";
 import type { SavedArtworkDTO } from "@/lib/dal/saved-artworks";
 import type { PlacementDTO } from "@/lib/dal/boards";
@@ -66,7 +67,7 @@ export default function BoardAddImagesModal({
           </h2>
           <form method="dialog">
             <button className="btn btn-sm btn-circle btn-ghost" aria-label="Close">
-              ✕
+              <X className="size-4" />
             </button>
           </form>
         </div>
@@ -139,7 +140,14 @@ function PickerCard({
         className={`btn btn-xs ${onBoard ? "btn-ghost" : "btn-outline"}`}
       >
         {isPending && <span className="loading loading-spinner loading-xs" />}
-        {onBoard ? "On board ✓" : "Add"}
+        {onBoard ? (
+          <span className="inline-flex items-center gap-1">
+            On board
+            <Check className="size-3.5" />
+          </span>
+        ) : (
+          "Add"
+        )}
       </button>
     </li>
   );

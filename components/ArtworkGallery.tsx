@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  ChevronsLeft,
+  ChevronsRight,
+  MoreHorizontal,
+  Search,
+} from "lucide-react";
 import { Artwork, ArtworkResponse } from "@/lib/museum-types";
 import ArtworkCard from "./ArtworkCard";
 import ArtworkSkeleton from "./ArtworkSkeleton";
@@ -57,23 +63,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
         </select>
         {/* Search */}
         <form role="search" className={styles.search}>
-          <svg
-            className={styles.searchIcon}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2.5"
-              fill="none"
-              stroke="currentColor"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" />
-            </g>
-          </svg>
+          <Search className={styles.searchIcon} aria-hidden="true" />
           <input
             className={styles.searchInput}
             type="search"
@@ -131,7 +121,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
                   disabled={page === 1 || isFetching}
                   aria-label="Previous page"
                 >
-                  «
+                  <ChevronsLeft className="size-4" />
                 </button>
                 {pageRange(page, totalPages).map((p, i) =>
                   p === "…" ? (
@@ -142,7 +132,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
                       aria-hidden="true"
                       tabIndex={-1}
                     >
-                      …
+                      <MoreHorizontal className="size-4" />
                     </button>
                   ) : (
                     <button
@@ -165,7 +155,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
                   disabled={page === totalPages || isFetching}
                   aria-label="Next page"
                 >
-                  »
+                  <ChevronsRight className="size-4" />
                 </button>
               </div>
             </nav>

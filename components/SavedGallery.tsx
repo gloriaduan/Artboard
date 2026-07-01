@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
+import { Check } from "lucide-react";
 import type { Artwork } from "@/lib/museum-types";
 import type { SavedArtworkDTO } from "@/lib/dal/saved-artworks";
 import type { BoardDTO } from "@/lib/dal/boards";
@@ -110,7 +111,14 @@ export default function SavedGallery({
                   {isPending && addingId === item.id && (
                     <span className="loading loading-spinner loading-xs" />
                   )}
-                  {isAdded ? "Added ✓" : "Add to board"}
+                  {isAdded ? (
+                    <span className="inline-flex items-center gap-1">
+                      Added
+                      <Check className="size-3.5" />
+                    </span>
+                  ) : (
+                    "Add to board"
+                  )}
                 </button>
               )}
             </li>

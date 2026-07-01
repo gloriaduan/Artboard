@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
 import type { BoardDTO } from "@/lib/dal/boards";
 import { createBoardAction } from "@/app/actions/boards";
 
@@ -69,7 +70,8 @@ export default function BoardList({ boards }: { boards: BoardDTO[] }) {
           onClick={() => setCreating(true)}
           className="btn btn-sm btn-primary self-start"
         >
-          + New board
+          <Plus className="size-4" />
+          New board
         </button>
       )}
 
