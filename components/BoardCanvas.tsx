@@ -209,7 +209,9 @@ export default function BoardCanvas({
           >
             <ArrowLeft className="size-4" />
           </button>
-          <h1 className="text-lg font-bold truncate">{boardName}</h1>
+          <h1 className="font-display font-medium text-lg tracking-[-0.01em] truncate">
+            {boardName}
+          </h1>
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -239,7 +241,7 @@ export default function BoardCanvas({
             >
               <Minus className="size-4" />
             </button>
-            <span className="text-sm tabular-nums w-12 text-center text-base-content/70">
+            <span className="font-mono text-sm tabular-nums w-12 text-center text-base-content/70">
               {Math.round(zoom * 100)}%
             </span>
             <button

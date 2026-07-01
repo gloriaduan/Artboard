@@ -4,9 +4,12 @@ import {
   type Artwork,
   type ArtworkDetail,
   type ArtworkResponse,
+  type Century,
   type HarvardResponse,
+  type HarvardCenturyResponse,
   normalizeArtwork,
   normalizeArtworkDetail,
+  normalizeCentury,
 } from "./museum-types";
 
 export type {
@@ -14,6 +17,7 @@ export type {
   ArtworkDetail,
   ArtworkResponse,
   ArtworkThumbnail,
+  Century,
 } from "./museum-types";
 export { imageUrl } from "./museum-types";
 
@@ -35,6 +39,7 @@ export async function fetchArtworks(
   page = 1,
   limit = 20,
   query?: string,
+  century?: string,
 ): Promise<ArtworkResponse> {
   "use cache";
   cacheLife("hours");
@@ -46,6 +51,9 @@ export async function fetchArtworks(
     size: String(limit),
     page: String(page),
     fields: LIST_FIELDS,
+    // Narrow to a time period when one is selected. Combines with the popularity
+    // sort below so a filtered feed still shows that era's top paintings.
+    ...(century ? { century } : {}),
     ...(query
       ? { q: query }
       : // Default feed: most-viewed paintings first — a real popularity signal.
@@ -87,4 +95,36 @@ export async function fetchArtwork(
   const rec = await res.json();
 
   return { data: normalizeArtworkDetail(rec) };
+}
+
+// How many centuries to offer in the period dropdown. Kept short so every option
+// returns a healthy number of results and the list stays scannable.
+const CENTURY_LIMIT = 15;
+
+// Fetch the time-period options for the gallery filter: the centuries with the most
+// paintings, sorted newest era first. Scoped to the same feed as the gallery
+// (paintings with images) so counts reflect what users actually browse.
+export async function fetchCenturies(): Promise<Century[]> {
+  "use cache";
+  cacheLife("hours");
+
+  const params = new URLSearchParams({
+    apikey: apiKey(),
+    hasimage: "1",
+    classification: "Paintings",
+    size: "100",
+    fields: "id,name,objectcount,temporalorder",
+    sort: "objectcount",
+    sortorder: "desc",
+  });
+
+  const res = await fetch(`${HARVARD_BASE}/century?${params}`);
+  if (!res.ok) throw new Error(`Harvard fetch failed: ${res.status}`);
+  const json: HarvardCenturyResponse = await res.json();
+
+  return (json.records ?? [])
+    .map(normalizeCentury)
+    .filter((c) => c.name && c.count > 0)
+    .slice(0, CENTURY_LIMIT)
+    .sort((a, b) => b.order - a.order);
 }

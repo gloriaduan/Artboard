@@ -38,7 +38,10 @@ export default function UnsavedChangesModal({
       aria-labelledby="unsaved-changes-title"
     >
       <div className="modal-box">
-        <h3 id="unsaved-changes-title" className="font-bold text-lg">
+        <h3
+          id="unsaved-changes-title"
+          className="font-display font-medium text-2xl tracking-[-0.01em]"
+        >
           Unsaved changes
         </h3>
         <p className="py-4 text-base-content/70">

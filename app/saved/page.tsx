@@ -24,7 +24,9 @@ async function SavedContent() {
       <AuthNavbar user={user} />
       <main className="w-full max-w-6xl mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold">Saved Artworks</h1>
+          <h1 className="font-display font-semibold text-3xl tracking-[-0.01em] leading-tight">
+            Saved Artworks
+          </h1>
           <p className="text-base-content/70 text-sm mt-1">
             Artworks you&apos;ve saved to add to your boards
           </p>

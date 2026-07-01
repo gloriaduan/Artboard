@@ -7,7 +7,7 @@ export default function Navbar() {
     <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
       <div className="w-full max-w-6xl mx-auto flex">
         <div className="navbar-start">
-          <a className="btn btn-ghost text-xl tracking-tight font-semibold">
+          <a className="btn btn-ghost font-display text-xl tracking-[-0.01em] font-semibold">
             Museum Collage
           </a>
         </div>

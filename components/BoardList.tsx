@@ -88,7 +88,7 @@ export default function BoardList({ boards }: { boards: BoardDTO[] }) {
                 className="flex flex-col justify-between h-32 p-4 rounded-lg bg-base-200 hover:bg-base-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-base-100"
               >
                 <span className="font-semibold truncate">{board.name}</span>
-                <span className="text-sm text-base-content/70">
+                <span className="font-mono text-xs tabular-nums text-base-content/60">
                   {board.placementCount}{" "}
                   {board.placementCount === 1 ? "artwork" : "artworks"}
                 </span>

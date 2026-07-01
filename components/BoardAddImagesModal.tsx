@@ -62,7 +62,10 @@ export default function BoardAddImagesModal({
     >
       <div className="modal-box w-11/12 max-w-5xl max-h-[85vh] flex flex-col gap-4">
         <div className="flex items-center justify-between gap-4">
-          <h2 id="add-images-title" className="font-bold text-lg">
+          <h2
+            id="add-images-title"
+            className="font-display font-medium text-2xl tracking-[-0.01em]"
+          >
             Add images
           </h2>
           <form method="dialog">

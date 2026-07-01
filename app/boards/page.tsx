@@ -16,7 +16,9 @@ async function BoardsContent() {
       <AuthNavbar user={user} />
       <main className="w-full max-w-6xl mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold">My Boards</h1>
+          <h1 className="font-display font-semibold text-3xl tracking-[-0.01em] leading-tight">
+            My Boards
+          </h1>
           <p className="text-base-content/70 text-sm mt-1">
             Arrange your saved artworks into collage boards
           </p>

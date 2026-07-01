@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Form from "next/form";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   ChevronsLeft,
@@ -8,7 +10,7 @@ import {
   MoreHorizontal,
   Search,
 } from "lucide-react";
-import { Artwork, ArtworkResponse } from "@/lib/museum-types";
+import { Artwork, ArtworkResponse, Century } from "@/lib/museum-types";
 import ArtworkCard from "./ArtworkCard";
 import ArtworkSkeleton from "./ArtworkSkeleton";
 import ArtworkModal from "./ArtworkModal";
@@ -18,32 +20,75 @@ import pageRange from "@/lib/utils/artwork-gallery/helpers";
 type Props = {
   initialData: Artwork[];
   totalPages: number;
+  centuries: Century[];
 };
 
-async function fetchArtworks(page: number): Promise<Artwork[]> {
-  const res = await fetch(`/api/artworks?limit=20&page=${page}`);
+type Filters = { q: string; century: string };
+
+async function fetchArtworks(
+  page: number,
+  { q, century }: Filters,
+): Promise<ArtworkResponse> {
+  const params = new URLSearchParams({ limit: "20", page: String(page) });
+  if (q) params.set("q", q);
+  if (century) params.set("century", century);
+  const res = await fetch(`/api/artworks?${params}`);
   if (!res.ok) throw new Error("Failed to load artworks");
-  const data: ArtworkResponse = await res.json();
-  return data.data;
+  return res.json();
 }
 
-export default function ArtworkGallery({ initialData, totalPages }: Props) {
+export default function ArtworkGallery({
+  initialData,
+  totalPages,
+  centuries,
+}: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const q = searchParams.get("q") ?? "";
+  const century = searchParams.get("century") ?? "";
+  const hasFilters = Boolean(q || century);
+
   const [page, setPage] = useState(1);
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
+  const filterKey = `${q} ${century}`;
+  const [activeFilterKey, setActiveFilterKey] = useState(filterKey);
+  if (filterKey !== activeFilterKey) {
+    setActiveFilterKey(filterKey);
+    setPage(1);
+  }
+
   const { data, isError, isFetching, refetch } = useQuery({
-    queryKey: ["artworks", page],
-    queryFn: () => fetchArtworks(page),
-    initialData: page === 1 ? initialData : undefined,
+    queryKey: ["artworks", page, q, century],
+    queryFn: () => fetchArtworks(page, { q, century }),
+    // The SSR seed is only valid for the unfiltered first page.
+    initialData:
+      page === 1 && !hasFilters
+        ? {
+            data: initialData,
+            pagination: { total: 0, total_pages: totalPages, current_page: 1 },
+          }
+        : undefined,
     placeholderData: keepPreviousData,
   });
 
-  const artworks = data ?? [];
+  const artworks = data?.data ?? [];
+  // Page count comes from the (possibly filtered) response so the pager never
+  // outlives its result set. Fall back to the SSR prop before the first fetch.
+  const pageCount = data?.pagination.total_pages ?? totalPages;
 
   function goToPage(next: number) {
-    if (next < 1 || next > totalPages || next === page) return;
+    if (next < 1 || next > pageCount || next === page) return;
     setPage(next);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function onCenturyChange(next: string) {
+    const params = new URLSearchParams(searchParams);
+    if (next) params.set("century", next);
+    else params.delete("century");
+    router.push(params.size ? `${pathname}?${params}` : pathname);
   }
 
   return (
@@ -53,24 +98,30 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
         <select
           className="select select-sm border border-base-content/20"
           aria-label="Filter by period"
+          value={century}
+          onChange={(e) => onCenturyChange(e.target.value)}
         >
           <option value="">Select a period</option>
-          <option value="ancient">Ancient</option>
-          <option value="medieval">Medieval</option>
-          <option value="renaissance">Renaissance</option>
-          <option value="modern">Modern</option>
-          <option value="contemporary">Contemporary</option>
+          {centuries.map((c) => (
+            <option key={c.id} value={c.name}>
+              {c.name}
+            </option>
+          ))}
         </select>
-        {/* Search */}
-        <form role="search" className={styles.search}>
+        {/* Search — submitting navigates to ?q=… on the same route. It omits the
+            century param, so running a search clears the period filter. */}
+        <Form action="" role="search" className={styles.search}>
           <Search className={styles.searchIcon} aria-hidden="true" />
           <input
+            name="q"
+            defaultValue={q}
+            key={q}
             className={styles.searchInput}
             type="search"
             placeholder="Search artworks, artists…"
             aria-label="Search artworks and artists"
           />
-        </form>
+        </Form>
       </div>
 
       {isError ? (
@@ -87,8 +138,12 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
             Try again
           </button>
         </div>
-      ) : artworks.length === 0 ? (
+      ) : data === undefined ? (
         <ArtworkSkeleton count={20} />
+      ) : artworks.length === 0 ? (
+        <div className="py-16 text-center text-base-content/70">
+          <p>No artworks found. Try a different search or period.</p>
+        </div>
       ) : (
         <>
           {/* CSS-columns masonry: cards flow into 2/3/4 columns by breakpoint and
@@ -108,7 +163,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
           </div>
 
           {/* DaisyUI numbered pagination */}
-          {totalPages > 1 && (
+          {pageCount > 1 && (
             <nav
               aria-label="Gallery pages"
               className="flex justify-center pt-2 pb-8"
@@ -123,7 +178,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
                 >
                   <ChevronsLeft className="size-4" />
                 </button>
-                {pageRange(page, totalPages).map((p, i) =>
+                {pageRange(page, pageCount).map((p, i) =>
                   p === "…" ? (
                     <button
                       key={`ellipsis-${i}`}
@@ -138,7 +193,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
                     <button
                       key={p}
                       type="button"
-                      className={`join-item btn ${p === page ? "btn-active" : ""}`}
+                      className={`join-item btn ${p === page ? "btn-primary" : ""}`}
                       onClick={() => goToPage(p)}
                       disabled={isFetching}
                       aria-current={p === page ? "page" : undefined}
@@ -152,7 +207,7 @@ export default function ArtworkGallery({ initialData, totalPages }: Props) {
                   type="button"
                   className="join-item btn"
                   onClick={() => goToPage(page + 1)}
-                  disabled={page === totalPages || isFetching}
+                  disabled={page === pageCount || isFetching}
                   aria-label="Next page"
                 >
                   <ChevronsRight className="size-4" />

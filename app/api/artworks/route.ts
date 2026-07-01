@@ -6,12 +6,13 @@ export async function GET(req: NextRequest) {
   const page = Number(searchParams.get("page") ?? 1);
   const limit = Number(searchParams.get("limit") ?? 20);
   const query = searchParams.get("q") ?? undefined;
+  const century = searchParams.get("century") ?? undefined;
 
   try {
-    const result = await fetchArtworks(page, limit, query);
+    const result = await fetchArtworks(page, limit, query, century);
     return NextResponse.json(result);
   } catch (err) {
-    console.error("AIC fetch error:", err);
+    console.error("Harvard fetch error:", err);
     return NextResponse.json({ error: "Failed to fetch artworks" }, { status: 502 });
   }
 }

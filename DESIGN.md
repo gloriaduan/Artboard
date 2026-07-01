@@ -1,24 +1,37 @@
 ---
 name: Museum Collage
-description: A dark, image-first baseline waiting to become a tactile collage table.
+description: An image-first surface with a three-voice type system (Fraunces serif display, Geist sans, Geist Mono placards) growing toward a tactile collage table.
 colors:
   base-100: "#0a0a0a"
   base-200: "#111111"
   base-300: "#1a1a1a"
   base-content: "#e5e5e5"
-  primary-placeholder: "#5b5bf0"
-  primary-content: "#e8e6fb"
+  primary: "#c63d00"
+  primary-dark: "#f36730"
+  primary-content: "#fffaf8"
 typography:
-  display:
-    fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "3rem"
-    fontWeight: 700
+  hero:
+    fontFamily: "Fraunces, Georgia, serif"
+    fontSize: "clamp(2.5rem, 6vw, 3.5rem)"
+    fontWeight: 600
+    lineHeight: 1.05
+    letterSpacing: "-0.01em"
+  pageTitle:
+    fontFamily: "Fraunces, Georgia, serif"
+    fontSize: "1.875rem"
+    fontWeight: 600
     lineHeight: 1.1
-    letterSpacing: "-0.025em"
-  title:
-    fontFamily: "Geist, system-ui, sans-serif"
+    letterSpacing: "-0.01em"
+  sectionTitle:
+    fontFamily: "Fraunces, Georgia, serif"
     fontSize: "1.5rem"
-    fontWeight: 700
+    fontWeight: 500
+    lineHeight: 1.15
+    letterSpacing: "-0.01em"
+  cardTitle:
+    fontFamily: "Geist, system-ui, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 600
     lineHeight: 1.2
     letterSpacing: "normal"
   body:
@@ -33,9 +46,16 @@ typography:
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: "normal"
-  mono:
+  placardLabel:
     fontFamily: "Geist Mono, ui-monospace, monospace"
-    fontSize: "0.875rem"
+    fontSize: "0.75rem"
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: "0.06em"
+    textTransform: "uppercase"
+  placardValue:
+    fontFamily: "Geist Mono, ui-monospace, monospace"
+    fontSize: "0.75rem"
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "normal"
@@ -51,7 +71,7 @@ spacing:
   xl: "2rem"
 components:
   button-primary:
-    backgroundColor: "{colors.primary-placeholder}"
+    backgroundColor: "{colors.primary}"
     textColor: "{colors.primary-content}"
     rounded: "{rounded.sm}"
   button-ghost:
@@ -77,13 +97,13 @@ This file documents what is *currently* on screen, not where the product is head
 
 The destination, per `PRODUCT.md`, is **playful, tactile, collage-y**: a scrapbook/pinboard surface where pieces can be grabbed, layered, rotated, and arranged by hand. None of that tactility exists yet. So read this system as the bare table before the collage is laid out: the lighting is right (dark, so art glows), but the paper, tape, overlap, and hand-made warmth are still to come. When the tactile direction lands, re-run `/impeccable document` and this North Star should change.
 
-The system today rejects: generic SaaS-dashboard chrome (sidebars, charts, blue-on-white corporate UI), sterile institutional museum stiffness, cluttered control-heavy surfaces, and anything childish or cartoonish. Where it currently risks the *first* of those — the accent is an unowned default blue — that is flagged below.
+The system today rejects: generic SaaS-dashboard chrome (sidebars, charts, blue-on-white corporate UI), sterile institutional museum stiffness, cluttered control-heavy surfaces, and anything childish or cartoonish. The former SaaS-blue risk is now resolved: the accent is an *owned* warm vermilion (§2), the first committed step toward the tactile/collage direction.
 
 **Key Characteristics:**
 - Near-black surfaces (`#0a0a0a`–`#1a1a1a`) so artwork is the only color.
-- One sans family (Geist) carries everything; no display/body pairing yet.
+- A three-voice type system: Fraunces serif for display/wordmark, Geist sans for body/UI, Geist Mono for museum-placard metadata.
 - Standard, restrained affordances — nothing reinvented, nothing decorative.
-- The accent is a placeholder, not a brand decision.
+- The accent is an owned, warm vermilion — a committed brand decision, not a default.
 - Tactility (drag, layer, rotate) is aspirational and not yet built.
 
 ## 2. Colors
@@ -91,8 +111,11 @@ The system today rejects: generic SaaS-dashboard chrome (sidebars, charts, blue-
 A monochrome near-black ramp with a single accent. The art supplies all the chroma; the UI supplies none.
 
 ### Primary
-- **Placeholder Indigo** (`#5b5bf0` ≈ `oklch(58% 0.233 277.117)`): DaisyUI 5's *inherited default* primary. Used for primary buttons (`btn-primary`: "Get started", "Save to board"), focus-ring outlines on the search field, and avatar initials. **This is not yet a brand color** — it is an unowned default carried over from the framework. Treat every use of it as a placeholder to be replaced when the tactile/collage palette is chosen.
-- **Primary Content** (`#e8e6fb` ≈ `oklch(96% 0.018 272.314)`): foreground text/initials on primary surfaces.
+- **Tape Vermilion** — the *owned* brand accent (hue ~38, a warm red-orange). It reads like masking tape, a paint stroke, or a wax seal: hand-made and tactile, warm and personal, never institutional — the first committed step toward the collage direction. It appears only on primary action (`btn-primary`: "Get started", "Save to board"), current selection, focus rings, links, and avatar initials — never as decoration. Two theme-tuned values, each cleared for AA:
+  - Light: `#c63d00` (`oklch(55.5% 0.185 38)`) — darkened so it reads as link/label text on the near-white surface (≈4.95:1 on `base-100`, 4.66:1 on `base-200`).
+  - Dark: `#f36730` (`oklch(68% 0.185 40)`) — brightened for dark-on-light legibility (≈6.3:1 on `base-100`), chroma held high so it glows without competing with the artwork.
+  Kept clear of the crimson `error` hue (22) by leaning orange (38), so accent and error never read as the same red.
+- **Primary Content** (`#fffaf8` light / `#150a08` dark): foreground text/initials on primary surfaces (≥5:1 both themes).
 
 ### Neutral
 - **Base 100 — Ink Black** (`#0a0a0a`): the page background and navbar surface. The darkroom floor.
@@ -101,27 +124,34 @@ A monochrome near-black ramp with a single accent. The art supplies all the chro
 - **Base Content — Soft White** (`#e5e5e5`): body and heading text. Muted variants are expressed as opacity (`/70`, `/60`, `/50`, `/40`) rather than separate gray tokens.
 
 ### Named Rules
-**The Art-Is-The-Only-Color Rule.** The UI palette is intentionally monochrome. Every saturated pixel on screen should come from an artwork, never from chrome. If a UI element is competing with the art for color attention, it is wrong.
+**The Art-Is-The-Only-Color Rule.** The UI palette is intentionally near-monochrome. Every *saturated* pixel on screen should come from an artwork, never from chrome. The lone exception is Tape Vermilion, used sparingly and only for action/selection/focus — if any other UI element competes with the art for color attention, it is wrong.
 
-**The Placeholder-Accent Rule.** The current indigo is a framework default, not a decision. Do not build brand meaning on it, and do not propagate it into new surfaces as if it were chosen. It is on borrowed time.
+**The Vermilion-Is-Earned Rule.** The accent is a committed brand color, but it earns its place by scarcity. Use it for primary action, current selection, focus, and links — never to decorate, tint surfaces, or fill inactive states. Neutrals carry only a *faint* warm tint toward hue 38 (chroma ≤0.009) for cohesion; they must never read as colored.
 
 ## 3. Typography
 
-**Display Font:** Geist (with `system-ui, sans-serif`)
-**Body Font:** Geist (same family)
-**Label/Mono Font:** Geist Mono (with `ui-monospace, monospace`) — loaded but barely used today.
+**A three-voice system.** Type now carries the brand voice it was missing.
 
-**Character:** A single, neutral, modern geometric sans carries the entire interface — headings, body, labels, buttons. This is the right instinct for a product surface (one well-tuned sans does the whole job), but it is also *quiet to a fault*: there is no typographic personality yet to carry the "playful, tactile" voice the brand wants. Type is currently a workhorse, not a voice.
+**Display Font:** Fraunces (with `Georgia, "Times New Roman", serif` fallback) — an expressive, old-style variable serif with optical sizing and a soft axis. Loaded via `next/font` as `--font-fraunces`, bound to the `--font-display` theme token so `font-display` is a Tailwind utility.
+**Body/UI Font:** Geist (with `ui-sans-serif, system-ui, sans-serif`) — the quiet workhorse for body, buttons, labels, inputs.
+**Placard Font:** Geist Mono (with `ui-monospace, monospace`) — now the "museum wall-label" voice for artwork metadata and numerics.
 
-### Hierarchy
-- **Display** (700, ~3rem / `text-5xl`, line-height ~1.1, letter-spacing -0.025em): the landing hero ("Your personal art collection"). The single largest type moment.
-- **Title** (700, 1.5rem / `text-2xl`): dashboard page heading ("Explore Art").
-- **Heading** (700, 1.25rem / `text-xl`): artwork modal title.
-- **Body** (400, 1rem): descriptions and prose. Cap prose at 65–75ch; the landing sub-copy already constrains with `max-w-md`.
-- **Label** (500–600, 0.875rem / `text-sm`): buttons, metadata, search input, dropdown items.
+**Character:** Fraunces gives headings and the wordmark a warm, hand-made, gallery-placard character that fits the "playful, tactile, collage-y" brand; it contrasts with Geist on a real axis (serif vs. geometric grotesque, old-style vs. neo-grotesque). Geist recedes as the neutral UI workhorse. Geist Mono supplies catalogue-card texture on the metadata that describes each work. The art is still the hero — the serif lives in chrome, sized and coloured so it never competes with the images.
+
+### Hierarchy (fixed `rem` scale, ~1.25 ratio; only the hero is fluid)
+- **Hero** (Fraunces 600, `clamp(2.5rem, 6vw, 3.5rem)`, line-height 1.05, tracking -0.01em, `text-wrap: balance`): the landing headline. The single largest type moment; clamp max is bounded (≤3.5rem, ≤~2.5× the min) for safe zoom/reflow.
+- **Page title** (Fraunces 600, 1.875rem / `text-3xl`, tracking -0.01em): "Explore Art", "Saved Artworks", "My Boards", and the artwork/auth modal titles were unified up to the section scale.
+- **Section / modal title** (Fraunces 500, 1.5rem / `text-2xl`): modal headings (Sign in, Create an account, Add images, Unsaved changes), artwork modal title.
+- **Card / board title** (Geist 600, `text-base`/`text-lg`): artwork-card overlay title, board card names, board-canvas toolbar title. Stays sans for legibility at small sizes and over imagery.
+- **Body** (Geist 400, 1rem): descriptions and prose. Cap prose at 65–75ch; landing sub-copy constrains with `max-w-md`.
+- **Label / UI** (Geist 500, 0.875rem / `text-sm`): buttons, search input, dropdown items, form labels.
+- **Placard label** (Geist Mono 500, 0.75rem / `text-xs`, uppercase, tracking 0.06em): the `<dt>` terms in the artwork modal's metadata block (Medium, Dimensions, Culture, Credit).
+- **Placard value / numeric** (Geist Mono 400, `text-xs`/`text-sm`, `tabular-nums` where numeric): metadata values, artwork date, board zoom %, board artwork counts.
 
 ### Named Rules
-**The One-Family Rule.** One sans (Geist) does everything. Do not introduce a second similar sans. If the system ever earns a display face, it must contrast on a real axis (serif, or a humanist/quirky display against Geist's geometry) — never a second near-identical geometric sans.
+**The Three-Voice Rule.** Display = Fraunces serif (headings + wordmark), body/UI = Geist sans, placard = Geist Mono (metadata + numerics). Exactly three families — no fourth, and no second geometric sans that would blur against Geist. A new heading uses `font-display`; catalogue-style metadata and any tabular number uses `font-mono`; everything else is the default sans.
+
+**The Art-Stays-Hero Rule (typographic corollary).** The serif is chrome only. Never set it over an artwork in a way that competes with the image, and keep placard mono small and low-contrast — it labels the art, it doesn't shout.
 
 ## 4. Elevation
 
@@ -138,7 +168,7 @@ This is a **flat, tonal system**. Depth is conveyed almost entirely by stepping 
 
 ### Buttons
 - **Shape:** gently rounded (`0.5rem`, DaisyUI `btn` default).
-- **Primary:** placeholder-indigo fill with primary-content text (`btn btn-primary`). Used for the single most important action on a surface ("Get started", "Save to board").
+- **Primary:** Tape Vermilion fill with primary-content text (`btn btn-primary`). Used for the single most important action on a surface ("Get started", "Save to board").
 - **Ghost:** transparent, inherits text color, subtle hover (`btn btn-ghost`). Used for secondary actions ("Explore artworks") and icon buttons (modal close).
 - **Saved/toggle state:** a saved artwork's button switches to `btn-outline` with a "Saved ✓" label; a loading spinner (`loading-spinner`) shows during the pending transition.
 
@@ -151,13 +181,13 @@ This is a **flat, tonal system**. Depth is conveyed almost entirely by stepping 
 
 ### Inputs (Search)
 - **Style:** `base-200` fill, 1px hairline border (`base-content` at 15%), `0.5rem` radius, leading magnifier icon at 50% opacity.
-- **Focus:** a 2px `--color-primary` outline with 1px offset (currently the placeholder indigo).
+- **Focus:** a 2px `--color-primary` outline with 1px offset (Tape Vermilion).
 - **Placeholder:** `base-content` at 40% opacity.
 
 ### Navigation (AuthNavbar)
 - **Style:** sticky top bar, `base-100`, three-column grid (logo / search / avatar), 4rem tall, capped at 72rem and centered.
 - **Logo:** 1.25rem, weight 600, -0.025em tracking; hover lifts to `base-200`.
-- **Avatar menu:** circular avatar (image or initials on placeholder-indigo); a `focus-within` dropdown panel (`base-100`, `0.75rem` radius, floating shadow) lists the email, "Saved", and a danger-colored sign-out.
+- **Avatar menu:** circular avatar (image or initials on Tape Vermilion); a `focus-within` dropdown panel (`base-100`, `0.75rem` radius, floating shadow) lists the email, "Saved", and a danger-colored sign-out.
 
 ### Modal (Artwork Detail)
 - **Native `<dialog>`** (DaisyUI `modal`), opened imperatively. Two-column at `md+` (image well `base-200` left, scrollable detail right), stacked on mobile, capped at `85vh` so it stays landscape. Detail content loads behind a skeleton (`skeleton` bars), never a centered spinner. Closes via backdrop click or the ghost ✕.
@@ -165,14 +195,14 @@ This is a **flat, tonal system**. Depth is conveyed almost entirely by stepping 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** keep the UI monochrome — let every saturated color come from the artwork (the Art-Is-The-Only-Color Rule).
+- **Do** keep the UI near-monochrome — let every saturated color come from the artwork, with Tape Vermilion the one owned accent, used only for action/selection/focus (the Art-Is-The-Only-Color Rule).
 - **Do** convey depth by stepping the near-black ramp (`#0a0a0a` → `#111111` → `#1a1a1a`), not by adding shadows.
 - **Do** use skeleton loaders for content, never a spinner parked in the middle of empty space.
-- **Do** keep one sans (Geist) across the UI; if a display face is ever added, contrast it on a real axis.
-- **Do** treat the indigo accent as a placeholder and design its replacement when the tactile palette is chosen.
+- **Do** keep the three-voice system (Fraunces display, Geist body/UI, Geist Mono placards) and its real-axis serif/sans contrast; don't add a fourth family or a second geometric sans.
+- **Do** build on Tape Vermilion as the committed accent, and keep it scarce (action / selection / focus only) so it stays powerful (the Vermilion-Is-Earned Rule).
 
 ### Don't:
-- **Don't** build brand meaning on the current `#5b5bf0` indigo — it is an inherited DaisyUI default, not a chosen color.
+- **Don't** spread the vermilion into surfaces, inactive states, or decoration — scarcity is what makes it read as intentional, not corporate.
 - **Don't** drift toward a **generic SaaS dashboard**: no sidebars, charts, blue-on-white corporate chrome, or Inter-everywhere flatness.
 - **Don't** make it feel like a **sterile institutional museum site** — stiff, formal, gray, bureaucratic. This is a personal space.
 - **Don't** clutter surfaces with controls, badges, or chrome that competes with the art (the art needs room to breathe).

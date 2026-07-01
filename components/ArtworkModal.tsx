@@ -141,7 +141,10 @@ function ArtworkContent({
 
       <div className="md:w-1/2 flex flex-col gap-4 p-6 overflow-y-auto">
         <div className="flex flex-col gap-1">
-          <h3 id="artwork-modal-title" className="font-bold text-xl pr-8">
+          <h3
+            id="artwork-modal-title"
+            className="font-display font-medium text-2xl tracking-[-0.01em] leading-[1.15] pr-8"
+          >
             {artwork.title}
           </h3>
           {artwork.artist && (
@@ -150,7 +153,7 @@ function ArtworkContent({
             </p>
           )}
           {artwork.date && (
-            <p className="text-sm text-base-content/50">{artwork.date}</p>
+            <p className="font-mono text-sm text-base-content/50">{artwork.date}</p>
           )}
         </div>
 
@@ -172,30 +175,43 @@ function ArtworkContent({
               </p>
             )}
 
-            <dl className="text-base-content/60">
+            {/* Museum-placard block: mono catalogue labels + values, evoking a
+                wall label. Labels are uppercase-tracked; a grid keeps values
+                aligned like a catalogue card. */}
+            <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 font-mono text-xs">
               {detail.medium && (
-                <div className="flex gap-2">
-                  <dt className="font-medium">Medium:</dt>
-                  <dd>{detail.medium}</dd>
-                </div>
+                <>
+                  <dt className="uppercase tracking-[0.06em] text-base-content/45">
+                    Medium
+                  </dt>
+                  <dd className="text-base-content/70">{detail.medium}</dd>
+                </>
               )}
               {detail.dimensions && (
-                <div className="flex gap-2">
-                  <dt className="font-medium">Dimensions:</dt>
-                  <dd>{detail.dimensions}</dd>
-                </div>
+                <>
+                  <dt className="uppercase tracking-[0.06em] text-base-content/45">
+                    Dimensions
+                  </dt>
+                  <dd className="text-base-content/70 tabular-nums">
+                    {detail.dimensions}
+                  </dd>
+                </>
               )}
               {detail.culture && (
-                <div className="flex gap-2">
-                  <dt className="font-medium">Culture:</dt>
-                  <dd>{detail.culture}</dd>
-                </div>
+                <>
+                  <dt className="uppercase tracking-[0.06em] text-base-content/45">
+                    Culture
+                  </dt>
+                  <dd className="text-base-content/70">{detail.culture}</dd>
+                </>
               )}
               {detail.creditLine && (
-                <div className="flex gap-2">
-                  <dt className="font-medium">Credit:</dt>
-                  <dd>{detail.creditLine}</dd>
-                </div>
+                <>
+                  <dt className="uppercase tracking-[0.06em] text-base-content/45">
+                    Credit
+                  </dt>
+                  <dd className="text-base-content/70">{detail.creditLine}</dd>
+                </>
               )}
             </dl>
           </div>

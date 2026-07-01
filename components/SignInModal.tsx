@@ -44,7 +44,9 @@ export default function SignInModal() {
           </button>
         </form>
 
-        <h3 className="font-bold text-lg mb-6">Sign in</h3>
+        <h3 className="font-display font-medium text-2xl tracking-[-0.01em] mb-6">
+          Sign in
+        </h3>
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <label className="flex flex-col gap-1">

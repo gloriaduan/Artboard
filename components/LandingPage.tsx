@@ -19,7 +19,9 @@ export default function LandingPage() {
 
       {/* Foreground text */}
       <div className="relative z-10 text-center px-4">
-        <h1 className="text-5xl font-bold tracking-tight text-base-content">
+        <h1
+          className="font-display font-semibold text-base-content leading-[1.05] tracking-[-0.01em] text-[clamp(2.5rem,6vw,3.5rem)]"
+        >
           Your personal art collection
         </h1>
         <p className="mt-4 text-lg text-base-content/70 max-w-md mx-auto">

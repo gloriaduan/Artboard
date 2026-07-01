@@ -36,6 +36,15 @@ export type ArtworkResponse = {
   };
 };
 
+// A time period option for the gallery filter. Backed by Harvard's `/century`
+// resource; `order` is Harvard's `temporalorder` (used to sort chronologically).
+export type Century = {
+  id: number;
+  name: string;
+  count: number;
+  order: number;
+};
+
 // Build a sized image URL. Harvard's resolver (`...nrs.harvard.edu/...`) 303-redirects
 // to its IIIF host and honors a `width`/`height` query param, so we just append one.
 export function imageUrl(imageBase: string, width = 400): string {
@@ -83,6 +92,23 @@ export type HarvardResponse = {
     page: number;
   };
   records: HarvardRecord[];
+};
+
+// A record from Harvard's `/century` resource (only the fields we read).
+export type HarvardCentury = {
+  id?: number;
+  name?: string | null;
+  objectcount?: number | null;
+  temporalorder?: number | null;
+};
+
+export type HarvardCenturyResponse = {
+  info: {
+    totalrecords: number;
+    pages: number;
+    page: number;
+  };
+  records: HarvardCentury[];
 };
 
 // Pick the artist display name: prefer the person whose role is "Artist", else the
@@ -139,5 +165,14 @@ export function normalizeArtworkDetail(rec: HarvardRecord): ArtworkDetail {
     dimensions: rec.dimensions ?? "",
     culture: rec.culture ?? "",
     creditLine: rec.creditline ?? "",
+  };
+}
+
+export function normalizeCentury(rec: HarvardCentury): Century {
+  return {
+    id: rec.id ?? 0,
+    name: rec.name ?? "",
+    count: rec.objectcount ?? 0,
+    order: rec.temporalorder ?? 0,
   };
 }

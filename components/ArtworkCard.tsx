@@ -63,7 +63,7 @@ export default function ArtworkCard({
           </p>
         )}
         {artwork.date && (
-          <p className="text-white/50 text-xs">{artwork.date}</p>
+          <p className="font-mono text-white/50 text-xs">{artwork.date}</p>
         )}
       </div>
     </button>

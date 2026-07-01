@@ -50,7 +50,9 @@ export default function SignUpModal() {
           </button>
         </form>
 
-        <h3 className="font-bold text-lg mb-6">Create an account</h3>
+        <h3 className="font-display font-medium text-2xl tracking-[-0.01em] mb-6">
+          Create an account
+        </h3>
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <label className="flex flex-col gap-1">
